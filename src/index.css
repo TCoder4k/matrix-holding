@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #ffffff;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* User Specified Hero Classes */
+.hero {
+  position: relative;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  background: #081c31 url("/images/hero-network.webp") center / cover no-repeat;
+}
+
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #081c31 0%,
+    rgba(8, 28, 49, 0.88) 43%,
+    rgba(8, 28, 49, 0.05) 100%
+  );
+}
+
+.container-page {
+  width: min(100% - 40px, 1220px);
+  margin-inline: auto;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding-block: 120px;
+  color: white;
+}
+
+.hero .eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  max-width: 720px;
+  font-size: clamp(38px, 5.3vw, 76px);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.hero h1 span {
+  color: #27d9ef;
+}
+
+.hero-description {
+  max-width: 580px;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #d1e3ed;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.btn-cyan {
+  background-color: #27d9ef;
+  color: #081c31;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-cyan:hover {
+  background-color: #20c4d8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(39, 217, 239, 0.35);
+}
+
+.btn-outline-white {
+  background-color: rgba(8, 28, 49, 0.4);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-outline-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #27d9ef;
+  color: #27d9ef;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 660px;
+    background-position: 70% center;
+  }
+
+  .hero-shade {
+    background: rgba(8, 28, 49, 0.78);
+  }
+
+  .hero-content {
+    padding-block: 90px;
+  }
+}
