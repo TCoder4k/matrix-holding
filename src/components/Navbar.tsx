@@ -47,18 +47,18 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
       }`}
     >
       <div className="container-page flex items-center justify-between gap-6">
-        {/* Chỉ hiển thị biểu tượng logo */}
         <a
-  href="#dau-trang"
-  aria-label="Matrix Holding - về đầu trang"
-  onClick={() => setMobileMenuOpen(false)}
-  className="inline-flex shrink-0 items-center"
->
-  <MatrixLogo
-    size="xl"
-    className="drop-shadow-[0_0_10px_rgba(39,217,239,0.35)]"
-  />
-</a>
+          href="#dau-trang"
+          aria-label="Matrix Holding - về đầu trang"
+          onClick={() => setMobileMenuOpen(false)}
+          className="inline-flex shrink-0 items-center"
+        >
+          <MatrixLogo
+            size="md"
+            showText={true}
+            className="drop-shadow-[0_0_10px_rgba(39,217,239,0.35)]"
+          />
+        </a>
         <nav
           className="hidden items-center gap-6 lg:flex"
           aria-label="Điều hướng chính"
