@@ -32,7 +32,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
 
         <div className="hero-actions">
           <a href="#he-sinh-thai" className="btn-cyan">
-            Khám phá hệ sinh thái →
+            Khám phá hệ sinh thái
           </a>
           <a
             href="#lien-he"
@@ -44,7 +44,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
             }}
             className="btn-outline-white"
           >
-            Hợp tác đầu tư ↗
+            Hợp tác đầu tư
           </a>
         </div>
 

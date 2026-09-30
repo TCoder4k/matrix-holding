@@ -42,8 +42,11 @@ export default function EcosystemSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Heading and Description */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#0284c7]">
-              HỆ SINH THÁI
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#0284c7]">
+                HỆ SINH THÁI
+              </span>
+              <span className="w-8 h-[2px] bg-[#0284c7] inline-block" />
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-slate-950 leading-[1.2] tracking-tight">
@@ -57,10 +60,9 @@ export default function EcosystemSection() {
             <div className="pt-2">
               <a
                 href="#du-an"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#081c31] bg-white border border-[#27d9ef] rounded-md hover:bg-[#e0f7fa]/50 transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-[#081c31] bg-white border border-[#27d9ef] rounded-md hover:bg-[#e0f7fa]/50 transition-colors shadow-xs"
               >
                 <span>Khám phá hệ sinh thái</span>
-                <ArrowRight className="w-4 h-4 text-[#0891b2]" />
               </a>
             </div>
           </div>
@@ -148,7 +150,7 @@ export default function EcosystemSection() {
                       MATRIX CONNECT
                     </h3>
                     <p className="text-xs text-slate-500 leading-snug mt-0.5">
-                      Liên kết đối tác,<br className="hidden sm:inline" /> kiến tạo giá trị
+                      Liên kết đối tác,<br className="hidden sm:inline" /> phân bổ giá trị
                     </p>
                   </div>
                 </div>
@@ -159,7 +161,7 @@ export default function EcosystemSection() {
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#081c31] border-2 border-[#27d9ef] shadow-[0_0_25px_rgba(39,217,239,0.35)] flex flex-col items-center justify-center text-center p-2 text-white transition-transform duration-300 group-hover:scale-105">
                       <div className="w-10 h-10 sm:w-11 sm:h-11 mb-1 shrink-0 flex items-center justify-center">
                         <img
-                          src="/images/logo-matrix-holding.svg"
+                          src="/images/logo-matrix-holding.png"
                           alt="Matrix Emblem"
                           className="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(30,96,168,0.7)]"
                         />
