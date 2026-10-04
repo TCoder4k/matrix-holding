@@ -192,7 +192,7 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
 
               {/* KHỐI 1 (Trên Trái - Navy): Mô-đun tiến ra ngoài hoặc khớp vào */}
               <div
-                className={`absolute top-6 left-12 sm:left-20 w-32 h-36 sm:w-36 sm:h-40 rounded-2xl bg-[#091a2e] border-r-4 border-amber-400 shadow-2xl p-4 flex flex-col justify-between transition-all duration-700 ${
+                className={`absolute top-6 left-12 sm:left-20 w-32 h-36 sm:w-36 sm:h-40 rounded-2xl bg-[#091a2e] border-r-4 border-amber-400 shadow-2xl p-4 flex flex-col justify-between transition-all duration-700 animate-float ${
                   activeTab === 'capabilities'
                     ? 'translate-x-[-15px] translate-y-[-10px] scale-105 z-30 ring-2 ring-sky-300'
                     : 'translate-x-0 translate-y-0 z-10'
@@ -204,7 +204,7 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
 
               {/* KHỐI 2 (Giữa Trái - Khối pha lê Cyan trong suốt): */}
               <div
-                className={`absolute top-28 left-28 sm:left-36 w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-[#00c2ff]/30 backdrop-blur-md border-2 border-[#00c2ff] shadow-xl p-4 flex flex-col justify-between transition-all duration-700 z-20 ${
+                className={`absolute top-28 left-28 sm:left-36 w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-[#00c2ff]/30 backdrop-blur-md border-2 border-[#00c2ff] shadow-xl p-4 flex flex-col justify-between transition-all duration-700 z-20 animate-float-delayed ${
                   activeTab === 'solutions'
                     ? 'scale-110 shadow-cyan-500/40 ring-4 ring-sky-200'
                     : ''
@@ -216,7 +216,7 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
 
               {/* KHỐI 3 (Dưới Trái - Khối đá hoa cương trắng viền vàng): */}
               <div
-                className={`absolute bottom-8 left-16 sm:left-24 w-32 h-36 sm:w-36 sm:h-40 rounded-2xl bg-slate-100 border border-slate-300 border-r-4 border-amber-400 shadow-xl p-4 flex flex-col justify-between transition-all duration-700 ${
+                className={`absolute bottom-8 left-16 sm:left-24 w-32 h-36 sm:w-36 sm:h-40 rounded-2xl bg-slate-100 border border-slate-300 border-r-4 border-amber-400 shadow-xl p-4 flex flex-col justify-between transition-all duration-700 animate-float-slow ${
                   activeTab === 'capabilities'
                     ? 'translate-x-[-15px] translate-y-[10px] scale-105 z-30'
                     : 'translate-x-0 translate-y-0 z-10'
@@ -229,17 +229,17 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
               {/* CỤM KHỐI TRUNG TÂM & BÊN PHẢI (Cấu trúc hoàn chỉnh các mô-đun gắn kết): */}
               <div className="absolute right-8 sm:right-12 top-10 bottom-10 w-44 sm:w-52 flex flex-col gap-3 justify-center z-10">
                 {/* Khối pha lê cyan lớn */}
-                <div className="w-full h-28 rounded-2xl bg-[#009fe3]/25 border-2 border-[#00c2ff] backdrop-blur-md shadow-lg p-3 flex flex-col justify-between">
+                <div className="w-full h-28 rounded-2xl bg-[#009fe3]/25 border-2 border-[#00c2ff] backdrop-blur-md shadow-lg p-3 flex flex-col justify-between animate-float">
                   <div className="w-8 h-1 bg-[#00c2ff] rounded-full" />
                   <span className="text-[#071629] font-black text-xs uppercase">Vận hành đồng bộ</span>
                 </div>
                 {/* Khối đá hoa cương trắng */}
-                <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200 border-l-4 border-[#071629] shadow-md p-3 flex flex-col justify-between">
+                <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200 border-l-4 border-[#071629] shadow-md p-3 flex flex-col justify-between animate-float-delayed">
                   <div className="w-6 h-1 bg-[#071629] rounded-full" />
                   <span className="text-slate-800 font-bold text-xs uppercase">Kiểm toán nội bộ</span>
                 </div>
                 {/* Khối navy đáy */}
-                <div className="w-full h-24 rounded-2xl bg-[#071629] border-l-4 border-amber-400 shadow-xl p-3 flex flex-col justify-between">
+                <div className="w-full h-24 rounded-2xl bg-[#071629] border-l-4 border-amber-400 shadow-xl p-3 flex flex-col justify-between animate-float-slow">
                   <div className="w-6 h-1 bg-amber-400 rounded-full" />
                   <span className="text-white font-bold text-xs uppercase">Tăng trưởng quy mô</span>
                 </div>
