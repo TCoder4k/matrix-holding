@@ -69,10 +69,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate, onOpenLog
       }}
     >
       <div className="w-full px-[5.4vw] flex items-center justify-between">
-        {/* Left: Official Logo (Tự động đổi logo chữ đen khi nền sáng để không bị tàng hình) */}
+        {/* Left: Official Logo & Brand Name with vertical divider */}
         <button
           onClick={() => handleItemClick('home')}
-          className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077b6] rounded-lg cursor-pointer flex items-center shrink-0"
+          className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0077b6] rounded-lg cursor-pointer flex items-center gap-3 shrink-0"
           aria-label="Matrix Holding Trang chủ"
         >
           <img
@@ -84,6 +84,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate, onOpenLog
             alt="Matrix Holding"
             className="h-8 lg:h-9 w-auto object-contain block transition-opacity duration-200"
           />
+          <span className={`w-[1.5px] h-5 ${isLightHeader ? 'bg-slate-300' : 'bg-slate-600'} inline-block`} />
+          <span className={`font-semibold text-base sm:text-lg tracking-tight ${isLightHeader ? 'text-slate-900' : 'text-white'}`}>
+            Matrix Holding
+          </span>
         </button>
 
         {/* Center: Main Navigation Menu với độ tương phản cao và không bị tràn khung */}
