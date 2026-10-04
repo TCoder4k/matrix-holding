@@ -609,16 +609,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         }}
       >
         <div className="pointer-events-auto text-left w-full lg:max-w-[780px] xl:max-w-[860px]">
-          {/* Eyebrow: 350–1000ms */}
+          {/* Eyebrow with vertical line divider */}
           <div
-            className="text-[13px] text-slate-400 font-semibold uppercase mb-4 transition-all duration-700 ease-out"
+            className="text-sm font-bold text-white uppercase mb-4 transition-all duration-700 ease-out flex items-center gap-3 tracking-[0.2em]"
             style={{
-              letterSpacing: '5px',
               opacity: animStage.eyebrow ? 1 : 0,
               transform: animStage.eyebrow ? 'translateY(0)' : 'translateY(10px)',
             }}
           >
-            {currentSlideData.eyebrow}
+            <span className="w-[2px] h-4 bg-[#00c2ff] inline-block" />
+            <span>Matrix Holding</span>
           </div>
 
           {/* Tiêu đề chính: HAI DÒNG ĐI LÊN TỪ VÙNG CHE (950ms, chuyển động thư thả và mượt) */}
