@@ -47,3 +47,59 @@ body {
   animation: float 6s ease-in-out infinite 2s;
 }
 
+.ecosystem-orbit {
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.ecosystem-orbit > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: inherit;
+}
+
+.orbit-node {
+  cursor: pointer;
+  outline: none;
+}
+
+.node-background {
+  transition:
+    fill 200ms ease,
+    stroke 200ms ease,
+    stroke-width 200ms ease;
+}
+
+.orbit-node:hover .node-background,
+.orbit-node:focus-visible .node-background {
+  fill: #ecfaff;
+  stroke: #00bfea;
+  stroke-width: 2.5;
+}
+
+.orbit-toggle {
+  display: block;
+  margin: 12px auto 0 auto;
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  color: #475569;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.orbit-toggle:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.orbit-toggle:focus-visible {
+  outline: 2px solid #00bfea;
+  outline-offset: 3px;
+}
+
