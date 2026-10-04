@@ -69,7 +69,7 @@ export const ChairmanDeclarationSection: React.FC<ChairmanDeclarationSectionProp
             <div className="relative w-full max-w-[500px] h-[440px] sm:h-[520px] rounded-[36px] overflow-hidden shadow-2xl border-4 border-white/80 bg-slate-100">
               {/* Ảnh chân dung Chủ tịch Hồ Anh Tuấn */}
               <img
-                src="/src/assets/images/chairman_ho_anh_tuan_1790825054856.jpg"
+                src="/images/chairman_ho_anh_tuan_1790825054856.jpg"
                 alt="Chủ tịch Matrix Holding Hồ Anh Tuấn"
                 className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
               />

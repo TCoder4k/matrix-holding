@@ -15,25 +15,25 @@ export const WorkflowRoadmapSection: React.FC = () => {
       num: '01',
       name: 'Lắng nghe',
       desc: 'Tìm hiểu nhu cầu, mục tiêu và bối cảnh riêng của từng khách hàng.',
-      image: '/src/assets/images/matrix_skyscraper_glass_1790826612996.jpg',
+      image: '/images/matrix_skyscraper_glass_1790826612996.jpg',
     },
     {
       num: '02',
       name: 'Đề xuất',
       desc: 'Cùng xác định hướng hợp tác phù hợp và tối ưu nguồn lực.',
-      image: '/src/assets/images/matrix_night_lobby_1790830296234.jpg',
+      image: '/images/matrix_night_lobby_1790830296234.jpg',
     },
     {
       num: '03',
       name: 'Triển khai',
       desc: 'Phối hợp chặt chẽ để hiện thực hóa kế hoạch một cách hiệu quả.',
-      image: '/src/assets/images/matrix_curved_facade_1790829793623.jpg',
+      image: '/images/matrix_curved_facade_1790829793623.jpg',
     },
     {
       num: '04',
       name: 'Đồng hành',
       desc: 'Luôn sát cánh trong suốt hành trình, sẵn sàng thích ứng và mở rộng cơ hội cùng nhau.',
-      image: '/src/assets/images/matrix_towers_financial_1790822854522.jpg',
+      image: '/images/matrix_towers_financial_1790822854522.jpg',
     },
   ];
 

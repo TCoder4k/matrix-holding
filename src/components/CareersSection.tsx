@@ -729,7 +729,7 @@ export const CareersSection: React.FC<CareersSectionProps> = ({ onExploreAll }) 
               {/* Ảnh nền kiến trúc cao ốc kính ban đêm rõ nét, phủ gradient navy sang trọng */}
               <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
                 <img
-                  src="/src/assets/images/matrix_holding_tower_dusk_1791004370385.jpg"
+                  src="/images/matrix_holding_tower_dusk_1791004370385.jpg"
                   alt="Tòa nhà trụ sở Matrix Holding"
                   className="w-full h-full object-cover object-bottom transition-transform duration-700 group-hover:scale-105 opacity-80"
                 />

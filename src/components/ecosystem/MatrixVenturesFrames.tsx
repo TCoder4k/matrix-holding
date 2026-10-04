@@ -140,7 +140,7 @@ export const MatrixVenturesFrames: React.FC<MatrixVenturesFramesProps> = ({ onEx
               
               {/* Ảnh nền đô thị và dòng sông thịnh vượng dưới nắng sớm */}
               <img
-                src="/src/assets/images/matrix_skyscraper_glass_1790826612996.jpg"
+                src="/images/matrix_skyscraper_glass_1790826612996.jpg"
                 alt="City Horizon Skyline"
                 className="w-full h-full object-cover object-center scale-105"
               />

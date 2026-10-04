@@ -80,7 +80,7 @@ export const MissionBridgeSection: React.FC = () => {
               
               {/* Ảnh nền núi non mây mù & hồ nước */}
               <img
-                src="/src/assets/images/matrix_skyscraper_glass_1790826612996.jpg"
+                src="/images/matrix_skyscraper_glass_1790826612996.jpg"
                 alt="Bridge Landscape"
                 className="w-full h-full object-cover opacity-40 mix-blend-luminosity"
               />

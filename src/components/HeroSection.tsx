@@ -400,7 +400,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         >
           {/* Ảnh bên trong thu nhẹ từ 104% về 100% trong 1400ms */}
           <img
-            src="/src/assets/images/matrix_hero_skyline_terrace_1791017043448.jpg"
+            src="/images/matrix_hero_skyline_terrace_1791017043448.jpg"
             alt="Đại sảnh Matrix Holding nhìn ra thành phố"
             className="w-full h-full object-cover object-center"
             style={{

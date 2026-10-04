@@ -34,7 +34,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({
       name: 'Matrix Network',
       description: 'Hệ sinh thái dịch vụ toàn diện',
       cta: 'Xem giải pháp',
-      image: '/src/assets/images/matrix_team_meeting_1790857862728.jpg',
+      image: '/images/matrix_team_meeting_1790857862728.jpg',
       destination: 'ecosystem',
     },
     {
@@ -43,7 +43,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({
       name: 'Matrix Connect',
       description: 'Hệ sinh thái kết nối kinh doanh',
       cta: 'Kết nối doanh nghiệp',
-      image: '/src/assets/images/matrix_networking_lounge_1790822870952.jpg',
+      image: '/images/matrix_networking_lounge_1790822870952.jpg',
       destination: 'ecosystem',
     },
     {
@@ -52,7 +52,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({
       name: 'Matrix Ventures',
       description: 'Hệ sinh thái kết nối đầu tư',
       cta: 'Tìm cơ hội đầu tư',
-      image: '/src/assets/images/matrix_boardroom_skyline_1790822831335.jpg',
+      image: '/images/matrix_boardroom_skyline_1790822831335.jpg',
       destination: 'ecosystem',
     },
     {
@@ -61,7 +61,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({
       name: 'Matrix Academy',
       description: 'Hệ sinh thái đào tạo tinh hoa',
       cta: 'Đăng ký khóa học',
-      image: '/src/assets/images/matrix_academy_seminar_1790860827960.jpg',
+      image: '/images/matrix_academy_seminar_1790860827960.jpg',
       destination: 'contact',
     },
   ];

@@ -18,21 +18,21 @@ export const CompetitiveEdgeSection: React.FC = () => {
       num: '01',
       title: 'Kết nối nguồn lực',
       desc: 'Khai mở tiềm năng từ sự kết nối đa chiều, tạo nền tảng vững chắc cho những cơ hội lớn hơn.',
-      image: '/src/assets/images/matrix_skyscraper_glass_1790826612996.jpg',
+      image: '/images/matrix_skyscraper_glass_1790826612996.jpg',
     },
     {
       id: 'e2',
       num: '02',
       title: 'Phối hợp chuyên môn',
       desc: 'Hài hòa giữa các lĩnh vực, kiến tạo giải pháp toàn diện và bền vững.',
-      image: '/src/assets/images/matrix_towers_financial_1790822854522.jpg',
+      image: '/images/matrix_towers_financial_1790822854522.jpg',
     },
     {
       id: 'e3',
       num: '03',
       title: 'Đồng hành phát triển',
       desc: 'Cùng kiến tạo giá trị dài hạn, vì những mục tiêu lớn hơn trong tương lai.',
-      image: '/src/assets/images/matrix_curved_facade_1790829793623.jpg',
+      image: '/images/matrix_curved_facade_1790829793623.jpg',
     },
   ];
 

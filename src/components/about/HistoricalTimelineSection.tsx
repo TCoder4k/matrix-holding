@@ -21,8 +21,8 @@ export const HistoricalTimelineSection: React.FC = () => {
       stageName: 'Khởi đầu',
       subtitle: 'Bắt đầu hành trình kiến tạo.',
       description: 'Chính thức thành lập Matrix Holding, quy tụ đội ngũ sáng lập dày dạn kinh nghiệm và định hình mô hình quản trị đầu tư thế hệ mới.',
-      image1: '/src/assets/images/matrix_executive_office_1790857252584.jpg',
-      image2: '/src/assets/images/matrix_villa_architecture_1790822760970.jpg',
+      image1: '/images/matrix_executive_office_1790857252584.jpg',
+      image2: '/images/matrix_villa_architecture_1790822760970.jpg',
     },
     {
       id: 'm2',
@@ -30,8 +30,8 @@ export const HistoricalTimelineSection: React.FC = () => {
       stageName: 'Mở rộng',
       subtitle: 'Xây dựng mạng lưới liên minh.',
       description: 'Mở rộng hệ sinh thái lên 8 đơn vị thành viên, ra mắt quỹ Matrix Ventures và hoàn tất các thương vụ đầu tư chiến lược đầu tiên.',
-      image1: '/src/assets/images/matrix_lounge_office_1790822492462.jpg',
-      image2: '/src/assets/images/matrix_boardroom_skyline_1790822831335.jpg',
+      image1: '/images/matrix_lounge_office_1790822492462.jpg',
+      image2: '/images/matrix_boardroom_skyline_1790822831335.jpg',
     },
     {
       id: 'm3',
@@ -39,8 +39,8 @@ export const HistoricalTimelineSection: React.FC = () => {
       stageName: 'Kết nối',
       subtitle: 'Đồng hành vươn tầm quốc tế.',
       description: 'Phục vụ hơn 500 doanh nghiệp đối tác tại 3 miền, ứng dụng AI Agent vào toàn bộ hệ sinh thái và thiết lập quan hệ với các quỹ quốc tế.',
-      image1: '/src/assets/images/matrix_towers_financial_1790822854522.jpg',
-      image2: '/src/assets/images/matrix_curved_facade_1790829793623.jpg',
+      image1: '/images/matrix_towers_financial_1790822854522.jpg',
+      image2: '/images/matrix_curved_facade_1790829793623.jpg',
     },
   ];
 

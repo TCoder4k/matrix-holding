@@ -85,7 +85,7 @@ export const StrategicPartnersSection: React.FC = () => {
       {/* Nền phong cảnh kiến trúc hiện đại và mái vòm uốn cong chân trời */}
       <div className="absolute inset-0 pointer-events-none opacity-25 overflow-hidden">
         <img
-          src="/src/assets/images/matrix_curved_facade_1790829793623.jpg"
+          src="/images/matrix_curved_facade_1790829793623.jpg"
           alt="Modern Architectural Balcony"
           className="w-full h-full object-cover object-bottom"
         />

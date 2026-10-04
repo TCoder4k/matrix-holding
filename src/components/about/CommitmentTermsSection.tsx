@@ -154,7 +154,7 @@ export const CommitmentTermsSection: React.FC = () => {
             {/* Ảnh mờ trang tài liệu văn bản góc dưới phải */}
             <div className="absolute right-0 bottom-0 w-72 h-48 opacity-15 pointer-events-none select-none">
               <img
-                src="/src/assets/images/matrix_creative_desk_1790825075738.jpg"
+                src="/images/matrix_creative_desk_1790825075738.jpg"
                 alt="Contract Document Paper"
                 className="w-full h-full object-cover object-bottom"
               />
