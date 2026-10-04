@@ -8,6 +8,7 @@ interface LatestStaggeredNewsProps {
 
 export const LatestStaggeredNews: React.FC<LatestStaggeredNewsProps> = ({ onOpenArticle }) => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [isFading, setIsFading] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -19,7 +20,6 @@ export const LatestStaggeredNews: React.FC<LatestStaggeredNewsProps> = ({ onOpen
     { key: 'ventures', label: 'Matrix Ventures' },
   ];
 
-  // Danh sách bài viết so le
   const articles: StoryItem[] = [
     {
       id: 'staggered-1',
@@ -88,11 +88,22 @@ export const LatestStaggeredNews: React.FC<LatestStaggeredNewsProps> = ({ onOpen
     return () => observer.disconnect();
   }, []);
 
+  const handleCategoryChange = (key: string) => {
+    if (key === activeCategory) return;
+    // 1 & 2: Mờ đi trong 150ms
+    setIsFading(true);
+    setTimeout(() => {
+      setActiveCategory(key);
+      // 3: Cập nhật và chuyển vào vị trí mới trong 250-300ms
+      setIsFading(false);
+    }, 150);
+  };
+
   const filteredArticles = activeCategory === 'all'
     ? articles
     : articles.filter((a) => a.category.toLowerCase().includes(activeCategory));
 
-  const mainArticle = filteredArticles[0] || articles[0];
+  const mainArticle = filteredArticles[0];
   const sideArticles = filteredArticles.slice(1);
 
   return (
@@ -116,7 +127,7 @@ export const LatestStaggeredNews: React.FC<LatestStaggeredNewsProps> = ({ onOpen
             Góc nhìn mới. Câu chuyện mới<span className="text-[#00c2ff]">.</span>
           </h2>
 
-          {/* DẢI TAB LỌC DANH MỤC VỚI THANH CYAN TRƯỢT */}
+          {/* DẢI TAB LỌC DANH MỤC VỚI THANH CYAN TRƯỢT 250MS */}
           <div className="flex items-center gap-6 sm:gap-8 overflow-x-auto border-b border-slate-200 pb-3 scrollbar-none">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.key;
@@ -124,8 +135,8 @@ export const LatestStaggeredNews: React.FC<LatestStaggeredNewsProps> = ({ onOpen
                 <button
                   key={cat.key}
                   type="button"
-                  onClick={() => setActiveCategory(cat.key)}
-                  className="flex flex-col items-start gap-2 group cursor-pointer focus:outline-none shrink-0"
+                  onClick={() => handleCategoryChange(cat.key)}
+                  className="flex flex-col items-start gap-2 group cursor-pointer focus:outline-none shrink-0 relative py-1"
                 >
                   <span
                     className={`text-xs sm:text-sm font-bold transition-colors ${
@@ -135,8 +146,8 @@ export const LatestStaggeredNews: React.FC<LatestStaggeredNewsProps> = ({ onOpen
                     {cat.label}
                   </span>
                   <span
-                    className={`h-[2px] transition-all duration-300 ${
-                      isActive ? 'w-full bg-[#00c2ff]' : 'w-0 bg-transparent'
+                    className={`h-[2.5px] rounded-full transition-all duration-250 ${
+                      isActive ? 'w-full bg-[#00c2ff]' : 'w-0 group-hover:w-full bg-slate-300'
                     }`}
                   />
                 </button>
@@ -145,112 +156,119 @@ export const LatestStaggeredNews: React.FC<LatestStaggeredNewsProps> = ({ onOpen
           </div>
         </div>
 
-        {/* BỐ CỤC SO LE: BÀI LỚN BÊN TRÁI, 2 BÀI NHỎ XẾP CHỒNG BÊN PHẢI (Khớp ảnh 2) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          
-          {/* CỘT TRÁI (BÀI LỚN 01): XUẤT HIỆN TRƯỚC */}
+        {/* NỘI DUNG DANH SÁCH BÀI VIẾT VỚI HIỆU ỨNG MỜ VÀ CHUYỂN ĐỘNG */}
+        {filteredArticles.length === 0 ? (
+          <div className="py-20 text-center text-slate-500 text-sm font-medium">
+            Chưa có bài viết trong danh mục này.
+          </div>
+        ) : (
           <div
-            onClick={() => onOpenArticle(mainArticle)}
-            className={`lg:col-span-7 flex flex-col justify-between group cursor-pointer transition-all duration-700 ${
-              isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch transition-opacity duration-300 ${
+              isFading ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
             }`}
           >
-            {/* Khung ảnh bài lớn với watermark trên cửa kính */}
-            <div className="relative w-full h-[320px] sm:h-[400px] rounded-3xl overflow-hidden shadow-lg bg-slate-900 mb-6">
-              <img
-                src={mainArticle.image}
-                alt={mainArticle.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            
+            {/* CỘT TRÁI (BÀI LỚN 01) */}
+            {mainArticle && (
+              <div
+                onClick={() => onOpenArticle(mainArticle)}
+                className={`lg:col-span-7 flex flex-col justify-between group cursor-pointer transition-all duration-700 ${
+                  isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <div className="relative w-full h-[320px] sm:h-[400px] rounded-3xl overflow-hidden shadow-lg bg-slate-900 mb-6">
+                  <img
+                    src={mainArticle.image}
+                    alt={mainArticle.title}
+                    className="w-full h-full object-cover transition-transform duration-450 group-hover:scale-103"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
-              {/* Dòng chữ nghệ thuật trên mặt kính phòng họp */}
-              <div className="absolute right-6 top-8 text-right text-white/80 pointer-events-none select-none hidden sm:block">
-                <p className="text-[10px] tracking-[0.2em] font-mono leading-relaxed">
-                  PEOPLE<br />
-                  IDEAS<br />
-                  CONNECTIONS<br />
-                  A BRIGHTER<br />
-                  TOMORROW
-                </p>
-                <div className="w-6 h-[1px] bg-white/60 ml-auto mt-2" />
-              </div>
-            </div>
-
-            {/* Thông tin bài lớn */}
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-bold text-slate-400">01</span>
-                <span className="text-slate-300">|</span>
-                <span className="text-xs font-bold text-[#00c2ff] uppercase tracking-wider">
-                  {mainArticle.category}
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-black text-[#0d1d2f] tracking-tight leading-snug mb-3 group-hover:text-[#00c2ff] transition-colors">
-                {mainArticle.title}
-              </h3>
-
-              <p className="text-slate-600 text-sm leading-relaxed mb-4 font-normal">
-                {mainArticle.excerpt}
-              </p>
-
-              <div className="text-xs sm:text-sm font-bold text-[#00c2ff] inline-flex items-center gap-1.5">
-                <span className="border-b border-[#00c2ff] pb-0.5">Xem chi tiết</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </div>
-            </div>
-          </div>
-
-          {/* CỘT PHẢI (2 BÀI NHỎ 02 & 03): XUẤT HIỆN SAU 100MS */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-8 sm:gap-10">
-            {sideArticles.map((article, idx) => {
-              return (
-                <div
-                  key={article.id}
-                  onClick={() => onOpenArticle(article)}
-                  className={`flex flex-col sm:flex-row gap-5 group cursor-pointer transition-all duration-700 delay-100 ${
-                    isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                >
-                  {/* Ảnh nhỏ vuông */}
-                  <div className="w-full sm:w-44 h-44 rounded-2xl overflow-hidden shadow-md shrink-0 bg-slate-900">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-
-                  {/* Nội dung bài nhỏ */}
-                  <div className="flex-1 flex flex-col justify-center">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-xs font-bold text-slate-400">0{idx + 2}</span>
-                      <span className="text-slate-300">|</span>
-                      <span className="text-xs font-bold text-[#00c2ff] uppercase tracking-wider">
-                        {article.category}
-                      </span>
-                    </div>
-
-                    <h4 className="text-lg sm:text-xl font-black text-[#0d1d2f] leading-snug tracking-tight mb-2 group-hover:text-[#00c2ff] transition-colors">
-                      {article.title}
-                    </h4>
-
-                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-3 line-clamp-2">
-                      {article.excerpt}
+                  <div className="absolute right-6 top-8 text-right text-white/80 pointer-events-none select-none hidden sm:block">
+                    <p className="text-[10px] tracking-[0.2em] font-mono leading-relaxed">
+                      PEOPLE<br />
+                      IDEAS<br />
+                      CONNECTIONS<br />
+                      A BRIGHTER<br />
+                      TOMORROW
                     </p>
-
-                    <div className="text-xs font-bold text-[#00c2ff] inline-flex items-center gap-1.5">
-                      <span className="border-b border-[#00c2ff] pb-0.5">Xem chi tiết</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                    </div>
+                    <div className="w-6 h-[1px] bg-white/60 ml-auto mt-2" />
                   </div>
                 </div>
-              );
-            })}
-          </div>
 
-        </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-bold text-slate-400">01</span>
+                    <span className="text-slate-300">|</span>
+                    <span className="text-xs font-bold text-[#00c2ff] uppercase tracking-wider">
+                      {mainArticle.category}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-black text-[#0d1d2f] tracking-tight leading-snug mb-3 group-hover:text-[#0077b6] group-hover:underline transition-all">
+                    {mainArticle.title}
+                  </h3>
+
+                  <p className="text-slate-600 text-sm leading-relaxed mb-4 font-normal">
+                    {mainArticle.excerpt}
+                  </p>
+
+                  <div className="text-xs sm:text-sm font-bold text-[#00c2ff] inline-flex items-center gap-1.5">
+                    <span className="border-b border-[#00c2ff] pb-0.5">Xem chi tiết</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* CỘT PHẢI (2 BÀI NHỎ XẾP CHỒNG) */}
+            <div className="lg:col-span-5 flex flex-col justify-between gap-8 sm:gap-10">
+              {sideArticles.map((article, idx) => {
+                return (
+                  <div
+                    key={article.id}
+                    onClick={() => onOpenArticle(article)}
+                    className={`flex flex-col sm:flex-row gap-5 group cursor-pointer transition-all duration-700 delay-100 ${
+                      isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
+                  >
+                    <div className="w-full sm:w-44 h-44 rounded-2xl overflow-hidden shadow-md shrink-0 bg-slate-900">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover transition-transform duration-450 group-hover:scale-103"
+                      />
+                    </div>
+
+                    <div className="flex-1 flex flex-col justify-center">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-xs font-bold text-slate-400">0{idx + 2}</span>
+                        <span className="text-slate-300">|</span>
+                        <span className="text-xs font-bold text-[#00c2ff] uppercase tracking-wider">
+                          {article.category}
+                        </span>
+                      </div>
+
+                      <h4 className="text-lg sm:text-xl font-black text-[#0d1d2f] leading-snug tracking-tight mb-2 group-hover:text-[#0077b6] group-hover:underline transition-all">
+                        {article.title}
+                      </h4>
+
+                      <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-3 line-clamp-2">
+                        {article.excerpt}
+                      </p>
+
+                      <div className="text-xs font-bold text-[#00c2ff] inline-flex items-center gap-1.5">
+                        <span className="border-b border-[#00c2ff] pb-0.5">Xem chi tiết</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+        )}
 
       </div>
     </section>

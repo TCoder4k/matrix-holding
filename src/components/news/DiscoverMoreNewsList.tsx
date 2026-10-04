@@ -7,8 +7,9 @@ interface DiscoverMoreNewsListProps {
 }
 
 export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOpenArticle }) => {
-  const [activeItemIndex, setActiveItemIndex] = useState(1); // Mặc định bài 02: Chia sẻ góc nhìn về phát triển bền vững (như ảnh 1)
+  const [activeItemIndex, setActiveItemIndex] = useState(1);
   const [visibleCount, setVisibleCount] = useState(4);
+  const [isLoading, setIsLoading] = useState(false);
   const [isTransitioningImage, setIsTransitioningImage] = useState(false);
 
   const listItems: StoryItem[] = [
@@ -113,11 +114,15 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
     setActiveItemIndex(index);
     setTimeout(() => {
       setIsTransitioningImage(false);
-    }, 250);
+    }, 200);
   };
 
   const handleShowMore = () => {
-    setVisibleCount((prev) => Math.min(prev + 2, listItems.length));
+    setIsLoading(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + 2, listItems.length));
+      setIsLoading(false);
+    }, 400);
   };
 
   const currentPreview = listItems[activeItemIndex] || listItems[0];
@@ -143,13 +148,12 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
           </span>
         </div>
 
-        {/* BỐ CỤC 2 CỘT: CỘT TRÁI DANH SÁCH BÀI / CỘT PHẢI ẢNH XEM TRƯỚC STICKY (Khớp ảnh 1) */}
+        {/* BỐ CỤC 2 CỘT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* CỘT TRÁI (7 CỘT): DANH SÁCH BÀI VIẾT NẰM NGANG */}
+          {/* CỘT TRÁI (7 CỘT): DANH SÁCH BÀI VIẾT NẰM NGANG VỚI HIỆU ỨNG HOVER #ECFAFF VÀ MŨI TÊN TRƯỢT 4PX */}
           <div className="lg:col-span-7 flex flex-col">
             
-            {/* Lưới các dòng bài viết */}
             <div className="divide-y divide-slate-200 border-t border-b border-slate-200">
               {listItems.slice(0, visibleCount).map((item, idx) => {
                 const isActive = activeItemIndex === idx;
@@ -158,28 +162,26 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
                     key={item.id}
                     onMouseEnter={() => handleHoverRow(idx)}
                     onClick={() => onOpenArticle(item)}
-                    className={`py-6 px-4 sm:px-6 transition-all duration-300 cursor-pointer flex items-center justify-between group ${
+                    style={{ animationDelay: `${idx * 70}ms` }}
+                    className={`py-6 px-4 sm:px-6 transition-all duration-200 cursor-pointer flex items-center justify-between group animate-in fade-in slide-in-from-bottom-2 ${
                       isActive
-                        ? 'bg-[#f0f9ff]/90 border-l-4 border-[#00c2ff]'
-                        : 'hover:bg-slate-50'
+                        ? 'bg-[#ECFAFF] border-l-4 border-[#00c2ff]'
+                        : 'hover:bg-[#ECFAFF]'
                     }`}
                   >
-                    {/* Cột số thứ tự + Danh mục & Tiêu đề */}
                     <div className="flex items-center gap-4 sm:gap-8 flex-1 pr-4">
-                      {/* Số thứ tự */}
                       <span
                         className={`text-xl sm:text-2xl font-light font-serif tracking-tight transition-colors ${
-                          isActive ? 'text-[#00c2ff] font-bold' : 'text-slate-400 group-hover:text-slate-600'
+                          isActive ? 'text-[#00c2ff] font-bold' : 'text-slate-400 group-hover:text-[#0077b6]'
                         }`}
                       >
                         {item.num}
                       </span>
 
-                      {/* Danh mục & Tiêu đề */}
                       <div className="flex-1">
                         <span
                           className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1 transition-colors ${
-                            isActive ? 'text-[#00c2ff]' : 'text-slate-400'
+                            isActive ? 'text-[#00c2ff]' : 'text-slate-400 group-hover:text-[#0077b6]'
                           }`}
                         >
                           {item.category}
@@ -187,7 +189,7 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
 
                         <h3
                           className={`text-base sm:text-lg font-black tracking-tight leading-snug transition-colors ${
-                            isActive ? 'text-[#00c2ff]' : 'text-[#0d1d2f] group-hover:text-[#00c2ff]'
+                            isActive ? 'text-[#0077b6]' : 'text-[#0d1d2f] group-hover:text-[#0077b6]'
                           }`}
                         >
                           {item.title}
@@ -195,10 +197,9 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
                       </div>
                     </div>
 
-                    {/* Nút Xem chi tiết → */}
                     <div
-                      className={`text-xs font-bold flex items-center gap-1 shrink-0 transition-colors ${
-                        isActive ? 'text-[#00c2ff]' : 'text-slate-400 group-hover:text-[#00c2ff]'
+                      className={`text-xs font-bold flex items-center gap-1 shrink-0 transition-all duration-200 group-hover:translate-x-1 ${
+                        isActive ? 'text-[#00c2ff]' : 'text-slate-400 group-hover:text-[#0077b6]'
                       }`}
                     >
                       <span className="hidden sm:inline-block">Xem chi tiết</span>
@@ -209,15 +210,16 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
               })}
             </div>
 
-            {/* Nút Xem thêm bài viết → (Bo tròn pill chuẩn ảnh) */}
+            {/* NÚT XEM THÊM BÀI VIẾT */}
             {visibleCount < listItems.length && (
               <div className="pt-8 flex justify-center">
                 <button
                   type="button"
                   onClick={handleShowMore}
-                  className="px-8 py-3 rounded-full border border-slate-700 hover:border-[#00c2ff] hover:bg-[#00c2ff]/5 text-[#0d1d2f] hover:text-[#00c2ff] font-bold text-xs sm:text-sm inline-flex items-center gap-2 transition-all cursor-pointer shadow-xs active:scale-98"
+                  disabled={isLoading}
+                  className="px-8 py-3.5 rounded-full border border-slate-700 hover:border-[#00c2ff] bg-white hover:bg-[#071629] text-[#0d1d2f] hover:text-white font-bold text-xs sm:text-sm inline-flex items-center gap-2.5 transition-all duration-200 cursor-pointer shadow-xs active:scale-98 disabled:opacity-60"
                 >
-                  <span>Xem thêm bài viết</span>
+                  <span>{isLoading ? 'Đang tải...' : 'Xem thêm bài viết'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -225,10 +227,9 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
 
           </div>
 
-          {/* CỘT PHẢI (5 CỘT): VÙNG ẢNH XEM TRƯỚC STICKY & TÓM TẮT BÀI ĐANG CHỌN */}
+          {/* CỘT PHẢI (5 CỘT): ẢNH XEM TRƯỚC STICKY */}
           <div className="lg:col-span-5 sticky top-28 flex flex-col">
             
-            {/* Khung ảnh preview */}
             <div
               onClick={() => onOpenArticle(currentPreview)}
               className="relative w-full h-[280px] sm:h-[340px] rounded-3xl overflow-hidden shadow-xl bg-slate-900 mb-5 cursor-pointer group"
@@ -236,14 +237,13 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
               <img
                 src={currentPreview.image}
                 alt={currentPreview.title}
-                className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${
+                className={`w-full h-full object-cover transition-all duration-450 group-hover:scale-103 ${
                   isTransitioningImage ? 'opacity-40 scale-102' : 'opacity-100 scale-100'
                 }`}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             </div>
 
-            {/* Thông tin bài đang xem trước */}
             <div className="px-1">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-[#00c2ff] uppercase tracking-wider">
@@ -257,7 +257,7 @@ export const DiscoverMoreNewsList: React.FC<DiscoverMoreNewsListProps> = ({ onOp
 
               <h4
                 onClick={() => onOpenArticle(currentPreview)}
-                className="text-xl sm:text-2xl font-black text-[#0d1d2f] leading-snug tracking-tight mb-2 hover:text-[#00c2ff] transition-colors cursor-pointer"
+                className="text-xl sm:text-2xl font-black text-[#0d1d2f] leading-snug tracking-tight mb-2 hover:text-[#0077b6] hover:underline transition-colors cursor-pointer"
               >
                 {currentPreview.title}
               </h4>
