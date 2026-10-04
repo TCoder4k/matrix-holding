@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none">
+  <!-- Black Square -->
+  <rect x="60" y="15" width="80" height="70" rx="3" fill="#09090b" />
+  <!-- Golden shield with fiery glow -->
+  <path d="M 100 24 L 108 28 L 106 40 C 104 46, 100 48, 100 48 C 100 48, 96 46, 94 40 L 92 28 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1" />
+  <!-- Text -->
+  <text x="100" y="58" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="8" font-weight="900" letter-spacing="0.08em" fill="#ffffff">TRIOBLADE</text>
+  <text x="100" y="68" text-anchor="middle" font-family="sans-serif" font-size="6" font-weight="700" letter-spacing="0.1em" fill="#ef4444">VIỆT NAM</text>
+</svg>

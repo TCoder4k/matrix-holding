@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none">
+  <!-- Circular dark brown gold crest -->
+  <circle cx="100" cy="42" r="32" fill="#2d1a0c" stroke="#d4af37" stroke-width="2" />
+  <circle cx="100" cy="42" r="28" fill="none" stroke="#d4af37" stroke-width="0.75" stroke-dasharray="2 2" />
+  <!-- Monogram R -->
+  <path d="M 94 28 C 98 24, 106 24, 108 32 C 109 37, 104 40, 99 41 L 109 52" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round" fill="none" />
+  <line x1="94" y1="26" x2="94" y2="52" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Text -->
+  <text x="100" y="58" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="10" font-weight="700" letter-spacing="0.15em" fill="#d4af37">ROYAL</text>
+  <text x="100" y="86" text-anchor="middle" font-family="sans-serif" font-size="6" font-weight="600" letter-spacing="0.1em" fill="#8c6d1f">VIỆN THẨM MỸ QUỐC TẾ</text>
+</svg>

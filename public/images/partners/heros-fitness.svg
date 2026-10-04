@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none">
+  <!-- Shield with green accent -->
+  <g transform="translate(100, 32) scale(0.65)">
+    <path d="M 0 -24 L 20 -16 L 16 12 C 12 24, 0 32, 0 32 C 0 32, -12 24, -16 12 L -20 -16 Z" fill="#0f172a" stroke="#84cc16" stroke-width="3" />
+    <path d="M 0 -18 L 12 -12 L 8 8 C 6 16, 0 22, 0 22 Z" fill="#84cc16" />
+  </g>
+  <!-- Text -->
+  <text x="100" y="68" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="12" font-weight="900" letter-spacing="0.1em" fill="#0f172a">HEROS</text>
+  <text x="100" y="78" text-anchor="middle" font-family="sans-serif" font-size="5" font-weight="700" letter-spacing="0.15em" fill="#475569">FITNESS · YOGA</text>
+</svg>
