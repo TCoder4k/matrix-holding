@@ -48,7 +48,7 @@ export const StrategicVisionSection: React.FC = () => {
       {/* Nền phong cảnh điện ảnh: Con đường chân trời lộng lẫy và thành phố đêm */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-60">
         <img
-          src="/src/assets/images/matrix_skyscraper_glass_1790826612996.jpg"
+          src="/images/matrix_skyscraper_glass_1790826612996.jpg"
           alt="Vision Horizon Landscape"
           className="w-full h-full object-cover object-center mix-blend-screen scale-110"
           style={{

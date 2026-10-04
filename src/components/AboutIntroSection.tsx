@@ -242,7 +242,7 @@ export const AboutIntroSection: React.FC<AboutIntroSectionProps> = ({
             >
               {/* Ảnh thu nhẹ từ 103% về 100% trong 1350ms, hover zoom nhẹ 102% */}
               <img
-                src="/src/assets/images/matrix_boardroom_skyline_1790822831335.jpg"
+                src="/images/matrix_boardroom_skyline_1790822831335.jpg"
                 alt="Phòng hội nghị chiến lược Matrix Holding"
                 className="w-full h-full object-cover object-center group-hover:scale-[1.02]"
                 style={{

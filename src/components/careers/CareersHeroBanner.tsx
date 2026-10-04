@@ -247,7 +247,7 @@ export const CareersHeroBanner: React.FC<CareersHeroBannerProps> = ({
                 }}
               >
                 <img
-                  src="/src/assets/images/matrix_executive_office_1790857252584.jpg"
+                  src="/images/matrix_executive_office_1790857252584.jpg"
                   alt="Nhân sự Matrix Holding 1"
                   className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                 />
@@ -265,7 +265,7 @@ export const CareersHeroBanner: React.FC<CareersHeroBannerProps> = ({
                 }}
               >
                 <img
-                  src="/src/assets/images/matrix_creative_desk_1790825075738.jpg"
+                  src="/images/matrix_creative_desk_1790825075738.jpg"
                   alt="Nhân sự Matrix Holding 2"
                   className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                 />
@@ -283,7 +283,7 @@ export const CareersHeroBanner: React.FC<CareersHeroBannerProps> = ({
                 }}
               >
                 <img
-                  src="/src/assets/images/matrix_team_meeting_1790857862728.jpg"
+                  src="/images/matrix_team_meeting_1790857862728.jpg"
                   alt="Nhân sự Matrix Holding 3"
                   className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                 />

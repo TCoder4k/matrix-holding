@@ -91,7 +91,7 @@ export const PartnershipInquiryForm: React.FC = () => {
             {/* Ảnh kiến trúc vòm ban công kính uốn lượn ban đêm chìm phía dưới */}
             <div className="absolute inset-0 pointer-events-none select-none opacity-35 overflow-hidden">
               <img
-                src="/src/assets/images/matrix_curved_facade_1790829793623.jpg"
+                src="/images/matrix_curved_facade_1790829793623.jpg"
                 alt="Architectural Curve"
                 className="w-full h-full object-cover object-bottom"
               />

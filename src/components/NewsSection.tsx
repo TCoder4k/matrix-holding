@@ -42,7 +42,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ onExploreAll }) => {
     brand: 'MATRIX HOLDING',
     category: 'Chiến lược phát triển',
     date: '26/09/2026',
-    image: '/src/assets/images/matrix_villa_architecture_1790822760970.jpg',
+    image: '/images/matrix_villa_architecture_1790822760970.jpg',
     title: 'Matrix Holding: Từ khát vọng khởi nghiệp đến hệ sinh thái kinh doanh đa ngành',
     summary:
       'Hành trình kiến tạo một mô hình tập đoàn đầu tư và vận hành thế hệ mới tại Việt Nam, lấy công nghệ và sự cộng hưởng đa ngành làm bệ phóng vững chắc cho các doanh nghiệp thành viên.',
@@ -57,7 +57,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ onExploreAll }) => {
       brand: 'MATRIX NETWORK',
       category: 'Hệ sinh thái dịch vụ',
       date: '26/09/2026',
-      image: '/src/assets/images/matrix_lounge_office_1790822492462.jpg',
+      image: '/images/matrix_lounge_office_1790822492462.jpg',
       title: 'Matrix Network: Hệ sinh thái dịch vụ toàn diện dành cho doanh nghiệp tại Việt Nam',
       summary:
         'Cung cấp bộ giải pháp trọn gói từ tư vấn chiến lược, pháp lý, kế toán quản trị đến chuyển đổi số cho các doanh nghiệp vừa và nhỏ.',
@@ -69,7 +69,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ onExploreAll }) => {
       brand: 'MATRIX CAPITAL',
       category: 'Đầu tư & Vốn',
       date: '19/09/2026',
-      image: '/src/assets/images/matrix_towers_financial_1790822854522.jpg',
+      image: '/images/matrix_towers_financial_1790822854522.jpg',
       title: 'Matrix Capital: Hệ sinh thái cộng đồng kết nối đầu tư Việt Nam',
       summary:
         'Cầu nối vững chắc giữa các nhà đầu tư tổ chức, quỹ mạo hiểm quốc tế với các dự án kinh doanh sáng tạo nội địa.',
@@ -81,7 +81,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ onExploreAll }) => {
       brand: 'MATRIX COMMUNITY',
       category: 'Cộng đồng doanh nhân',
       date: '19/09/2026',
-      image: '/src/assets/images/matrix_networking_lounge_1790822870952.jpg',
+      image: '/images/matrix_networking_lounge_1790822870952.jpg',
       title: 'Matrix Community: Hệ sinh thái cộng đồng kết nối kinh doanh Việt Nam',
       summary:
         'Môi trường giao thương cởi mở, nơi các nhà sáng lập chia sẻ tri thức thực chiến, hợp tác chéo và phát triển chuỗi giá trị bền vững.',

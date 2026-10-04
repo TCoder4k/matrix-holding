@@ -86,7 +86,7 @@ export const CorporateInfoSection: React.FC<CorporateInfoSectionProps> = ({ onSc
             }`}
           >
             <img
-              src="/src/assets/images/matrix_night_lobby_1790830296234.jpg"
+              src="/images/matrix_night_lobby_1790830296234.jpg"
               alt="Đại sảnh Matrix Holding"
               className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
             />

@@ -183,7 +183,7 @@ export const BrandStorySection: React.FC<BrandStorySectionProps> = () => {
                 }}
               >
                 <img
-                  src="/src/assets/images/matrix_skyscraper_glass_1790826612996.jpg"
+                  src="/images/matrix_skyscraper_glass_1790826612996.jpg"
                   alt="Matrix Vision Slice 1"
                   className="w-full h-full object-cover object-left scale-105 hover:scale-110 transition-transform duration-700"
                 />
@@ -202,7 +202,7 @@ export const BrandStorySection: React.FC<BrandStorySectionProps> = () => {
                 }}
               >
                 <img
-                  src="/src/assets/images/matrix_towers_financial_1790822854522.jpg"
+                  src="/images/matrix_towers_financial_1790822854522.jpg"
                   alt="Matrix Vision Slice 2"
                   className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-700"
                 />
@@ -219,7 +219,7 @@ export const BrandStorySection: React.FC<BrandStorySectionProps> = () => {
                 }}
               >
                 <img
-                  src="/src/assets/images/matrix_curved_facade_1790829793623.jpg"
+                  src="/images/matrix_curved_facade_1790829793623.jpg"
                   alt="Matrix Vision Slice 3"
                   className="w-full h-full object-cover object-right scale-105 hover:scale-110 transition-transform duration-700"
                 />
