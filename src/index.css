@@ -17,34 +17,100 @@ body {
   display: none;
 }
 
-@keyframes float {
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lightSweep {
+  0% {
+    transform: translateX(-150%) translateY(-150%) rotate(45deg);
+  }
+  30%, 100% {
+    transform: translateX(150%) translateY(150%) rotate(45deg);
+  }
+}
+
+@keyframes spinGear {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes barPulse {
   0%, 100% {
-    transform: translateY(0px);
+    transform: scaleY(1);
   }
-  50% {
-    transform: translateY(-6px);
+  35% {
+    transform: scaleY(1.4);
   }
-}
-
-@keyframes float-delayed {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
+  70% {
+    transform: scaleY(0.8);
   }
 }
 
-.animate-float {
-  animation: float 4s ease-in-out infinite;
+@keyframes balanceTip {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-7deg);
+  }
+  60% {
+    transform: rotate(7deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
-.animate-float-delayed {
-  animation: float-delayed 5s ease-in-out infinite 1s;
+.animate-card-entrance {
+  animation: cardEntrance 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
-.animate-float-slow {
-  animation: float 6s ease-in-out infinite 2s;
+.loop-light-sweep {
+  animation: lightSweep 1.2s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+.animate-spin-gear {
+  animation: spinGear 18s linear infinite;
+  transform-origin: center;
+}
+
+.animate-bar-growth {
+  animation: barPulse 1s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+.hover-balance:hover .scale-icon {
+  animation: balanceTip 0.8s ease-in-out;
+}
+
+.paused-animation * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-card-entrance,
+  .loop-light-sweep,
+  .animate-spin-gear,
+  .animate-bar-growth,
+  .hover-balance:hover .scale-icon {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 .ecosystem-orbit {

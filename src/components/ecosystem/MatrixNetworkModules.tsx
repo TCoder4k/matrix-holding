@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Scale, Cpu, Settings, ShieldCheck, BarChart3, TrendingUp } from 'lucide-react';
 
 interface MatrixNetworkModulesProps {
   onExplore?: () => void;
@@ -8,8 +8,9 @@ interface MatrixNetworkModulesProps {
 export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onExplore }) => {
   const [activeTab, setActiveTab] = useState<'capabilities' | 'coordination' | 'solutions'>('capabilities');
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [isTabTransitioning, setIsTabTransitioning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isPageVisible, setIsPageVisible] = useState(true);
 
   const tabs = [
     {
@@ -34,38 +35,45 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsIntersecting(true);
-        }
+        setIsIntersecting(entry.isIntersecting);
       },
-      { threshold: 0.25 }
+      { threshold: 0.2 }
     );
 
     if (containerRef.current) {
       observer.observe(containerRef.current);
     }
 
-    return () => observer.disconnect();
+    const handleVisibilityChange = () => {
+      setIsPageVisible(!document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: -y * 10, y: x * 12 });
+  const handleTabChange = (key: 'capabilities' | 'coordination' | 'solutions') => {
+    if (key === activeTab) return;
+    setIsTabTransitioning(true);
+    setTimeout(() => {
+      setActiveTab(key);
+      setIsTabTransitioning(false);
+    }, 150);
   };
 
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-  };
+  const shouldPause = !isIntersecting || !isPageVisible;
 
   return (
     <section
       ref={containerRef}
       id="section-network"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="w-full py-16 sm:py-24 bg-white text-[#0A192F] relative overflow-hidden select-none border-t border-slate-100"
+      className={`w-full py-16 sm:py-24 bg-white text-[#0A192F] relative overflow-hidden select-none border-t border-slate-100 ${
+        shouldPause ? 'paused-animation' : ''
+      }`}
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -74,24 +82,28 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
           <div className="lg:col-span-5 flex flex-col justify-center">
             
             {/* Kicker */}
-            <span className="text-[#0d1d2f] font-bold text-xs tracking-widest uppercase block mb-3">
+            <span className="text-[#0d1d2f] font-bold text-xs tracking-widest uppercase block mb-3 animate-in fade-in duration-500">
               MATRIX NETWORK
             </span>
 
             {/* Tiêu đề 2 dòng lớn */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-black tracking-tight leading-[1.12] text-[#0d1d2f] mb-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-black tracking-tight leading-[1.12] text-[#0d1d2f] mb-3 animate-in fade-in slide-in-from-bottom-3 duration-600">
               Kết nối năng lực.<br />
               <span className="text-[#00c2ff]">Mở rộng giải pháp.</span>
             </h2>
 
             {/* Phụ đề */}
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-6 font-normal animate-in fade-in duration-700">
               Khám phá năng lực của Matrix Network trong hệ sinh thái Matrix.
             </p>
 
             {/* Đoạn mô tả theo tab được chọn */}
             <div className="min-h-[50px] mb-6">
-              <p className="text-slate-500 text-xs sm:text-sm leading-relaxed transition-opacity duration-300">
+              <p
+                className={`text-slate-500 text-xs sm:text-sm leading-relaxed transition-opacity duration-300 ${
+                  isTabTransitioning ? 'opacity-0' : 'opacity-100'
+                }`}
+              >
                 {currentTab.desc}
               </p>
             </div>
@@ -101,14 +113,14 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
               <button
                 type="button"
                 onClick={onExplore}
-                className="px-7 py-3.5 rounded-full bg-[#071629] hover:bg-[#009fe3] text-white font-bold text-sm inline-flex items-center gap-2.5 transition-colors cursor-pointer shadow-md"
+                className="px-7 py-3.5 rounded-full bg-[#071629] hover:bg-[#009fe3] text-white font-bold text-sm inline-flex items-center gap-2.5 transition-all cursor-pointer shadow-md group"
               >
                 <span>Khám phá Matrix Network</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </div>
 
-            {/* THANH BỘ 3 TAB: NĂNG LỰC — PHỐI HỢP — GIẢI PHÁP */}
+            {/* THANH BỘ 3 TAB: NĂNG LỰC — PHỐI HỢP — GIẢI PHÁP (Trượt trong 250ms) */}
             <div className="flex items-center gap-8 border-t border-slate-100 pt-5">
               {tabs.map((tab) => {
                 const isActive = activeTab === tab.key;
@@ -116,8 +128,8 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
                   <button
                     key={tab.key}
                     type="button"
-                    onClick={() => setActiveTab(tab.key)}
-                    className="flex flex-col items-start gap-1 group cursor-pointer focus:outline-none"
+                    onClick={() => handleTabChange(tab.key)}
+                    className="flex flex-col items-start gap-1 group cursor-pointer focus:outline-none relative py-1"
                   >
                     <span
                       className={`text-xs sm:text-sm font-bold transition-colors ${
@@ -127,8 +139,8 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
                       {tab.label}
                     </span>
                     <span
-                      className={`h-[2px] transition-all duration-300 ${
-                        isActive ? 'w-full bg-[#00c2ff]' : 'w-0 bg-transparent'
+                      className={`h-[2px] rounded-full transition-all duration-250 ${
+                        isActive ? 'w-full bg-[#00c2ff]' : 'w-0 group-hover:w-full bg-slate-300'
                       }`}
                     />
                   </button>
@@ -138,124 +150,113 @@ export const MatrixNetworkModules: React.FC<MatrixNetworkModulesProps> = ({ onEx
 
           </div>
 
-          {/* CỘT PHẢI: MÔ-ĐUN HÌNH HỌC 3D NĂNG LỰC GHÉP VÀO NHAU (Khớp ảnh 2) */}
-          <div
-            className="lg:col-span-7 flex items-center justify-center relative min-h-[400px] sm:min-h-[460px] will-change-transform"
-            style={{
-              transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-              transition: 'transform 0.2s ease-out',
-            }}
-          >
-            <div className="relative w-full max-w-[560px] aspect-[4/3] flex items-center justify-center">
-              
-              {/* SVG ĐƯỜNG DẪN ÁNH SÁNG VÀNG KIM & CYAN XUYÊN QUA CÁC ĐIỂM TIẾP XÚC */}
-              <svg viewBox="0 0 540 400" className="w-full h-full overflow-visible" fill="none">
-                {/* Đường nối giữa các khối (sáng rực khi tab là 'coordination') */}
-                <line
-                  x1="180"
-                  y1="140"
-                  x2="290"
-                  y2="190"
-                  stroke={activeTab === 'coordination' ? '#00c2ff' : '#f59e0b'}
-                  strokeWidth={activeTab === 'coordination' ? '3' : '1.8'}
-                  opacity={activeTab === 'coordination' ? 1 : 0.75}
-                  className="transition-all duration-500"
-                />
-                <line
-                  x1="290"
-                  y1="190"
-                  x2="420"
-                  y2="210"
-                  stroke={activeTab === 'coordination' ? '#00c2ff' : '#f59e0b'}
-                  strokeWidth={activeTab === 'coordination' ? '3' : '1.8'}
-                  opacity={activeTab === 'coordination' ? 1 : 0.75}
-                  className="transition-all duration-500"
-                />
-                <line
-                  x1="190"
-                  y1="280"
-                  x2="290"
-                  y2="190"
-                  stroke={activeTab === 'coordination' ? '#00c2ff' : '#f59e0b'}
-                  strokeWidth={activeTab === 'coordination' ? '3' : '1.8'}
-                  opacity={activeTab === 'coordination' ? 1 : 0.75}
-                  className="transition-all duration-500"
-                />
-
-                {/* Vệt photon laser chạy xuyên qua các mô-đun */}
-                {isIntersecting && (
-                  <circle cx="0" cy="0" r="4" fill="#00c2ff" filter="drop-shadow(0 0 6px #00c2ff)">
-                    <animateMotion path="M 180 140 L 290 190 L 420 210" dur="3s" repeatCount="indefinite" />
-                  </circle>
-                )}
-              </svg>
-
-              {/* KHỐI 1 (Trên Trái - Navy): Mô-đun tiến ra ngoài hoặc khớp vào */}
+          {/* CỘT PHẢI: LƯỚI CARD VỚI ENTRANCE STAGGER & LOOPING ANIMATIONS */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-5 items-start">
+            
+            {/* CỘT 1 */}
+            <div className="flex flex-col gap-5">
+              {/* Card 1: Hạ tầng pháp lý (Navy) */}
               <div
-                className={`absolute top-6 left-12 sm:left-20 w-32 h-36 sm:w-36 sm:h-40 rounded-2xl bg-[#091a2e] border-r-4 border-amber-400 shadow-2xl p-4 flex flex-col justify-between transition-all duration-700 animate-float ${
-                  activeTab === 'capabilities'
-                    ? 'translate-x-[-15px] translate-y-[-10px] scale-105 z-30 ring-2 ring-sky-300'
-                    : 'translate-x-0 translate-y-0 z-10'
+                className={`w-full h-64 rounded-3xl bg-[#071629] p-6 flex flex-col justify-between shadow-xl border border-slate-800 hover-balance group transition-shadow duration-300 hover:shadow-2xl ${
+                  isIntersecting ? 'animate-card-entrance' : 'opacity-0'
                 }`}
+                style={{ animationDelay: '0ms' }}
               >
-                <div className="w-6 h-1.5 bg-amber-400 rounded-full" />
-                <span className="text-white font-bold text-xs uppercase tracking-wider">Hạ tầng pháp lý</span>
+                <div className="w-8 h-1.5 bg-amber-400 rounded-full transition-all duration-300 group-hover:w-20" />
+                <div className="py-4 text-white flex justify-center scale-icon transition-transform duration-300">
+                  <Scale className="w-12 h-12 stroke-[1.5]" />
+                </div>
+                <span className="text-white font-black text-sm uppercase tracking-wider">Hạ tầng pháp lý</span>
               </div>
 
-              {/* KHỐI 2 (Giữa Trái - Khối pha lê Cyan trong suốt): */}
+              {/* Card 2: Tài chính & Vốn (White) */}
               <div
-                className={`absolute top-28 left-28 sm:left-36 w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-[#00c2ff]/30 backdrop-blur-md border-2 border-[#00c2ff] shadow-xl p-4 flex flex-col justify-between transition-all duration-700 z-20 animate-float-delayed ${
-                  activeTab === 'solutions'
-                    ? 'scale-110 shadow-cyan-500/40 ring-4 ring-sky-200'
-                    : ''
+                className={`w-full h-52 rounded-3xl bg-white border border-slate-200/90 p-6 flex flex-col justify-between shadow-xl group transition-shadow duration-300 hover:shadow-2xl ${
+                  isIntersecting ? 'animate-card-entrance' : 'opacity-0'
                 }`}
+                style={{ animationDelay: '180ms' }}
               >
-                <div className="w-6 h-1.5 bg-[#00c2ff] rounded-full" />
-                <span className="text-[#071629] font-black text-xs uppercase tracking-wider">Giải pháp AI</span>
-              </div>
-
-              {/* KHỐI 3 (Dưới Trái - Khối đá hoa cương trắng viền vàng): */}
-              <div
-                className={`absolute bottom-8 left-16 sm:left-24 w-32 h-36 sm:w-36 sm:h-40 rounded-2xl bg-slate-100 border border-slate-300 border-r-4 border-amber-400 shadow-xl p-4 flex flex-col justify-between transition-all duration-700 animate-float-slow ${
-                  activeTab === 'capabilities'
-                    ? 'translate-x-[-15px] translate-y-[10px] scale-105 z-30'
-                    : 'translate-x-0 translate-y-0 z-10'
-                }`}
-              >
-                <div className="w-6 h-1.5 bg-amber-400 rounded-full" />
-                <span className="text-slate-800 font-bold text-xs uppercase tracking-wider">Tài chính & Vốn</span>
-              </div>
-
-              {/* CỤM KHỐI TRUNG TÂM & BÊN PHẢI (Cấu trúc hoàn chỉnh các mô-đun gắn kết): */}
-              <div className="absolute right-8 sm:right-12 top-10 bottom-10 w-44 sm:w-52 flex flex-col gap-3 justify-center z-10">
-                {/* Khối pha lê cyan lớn */}
-                <div className="w-full h-28 rounded-2xl bg-[#009fe3]/25 border-2 border-[#00c2ff] backdrop-blur-md shadow-lg p-3 flex flex-col justify-between animate-float">
-                  <div className="w-8 h-1 bg-[#00c2ff] rounded-full" />
-                  <span className="text-[#071629] font-black text-xs uppercase">Vận hành đồng bộ</span>
+                <div className="w-8 h-1.5 bg-amber-400 rounded-full transition-all duration-300 group-hover:w-20" />
+                <div className="py-2 text-[#0A192F] flex justify-center items-end gap-1.5 h-16">
+                  <div className="w-2.5 h-6 bg-slate-200 rounded-t animate-bar-growth" style={{ animationDelay: '0s' }} />
+                  <div className="w-2.5 h-12 bg-[#00c2ff] rounded-t animate-bar-growth" style={{ animationDelay: '0.2s' }} />
+                  <div className="w-2.5 h-9 bg-[#071629] rounded-t animate-bar-growth" style={{ animationDelay: '0.4s' }} />
                 </div>
-                {/* Khối đá hoa cương trắng */}
-                <div className="w-full h-24 rounded-2xl bg-slate-50 border border-slate-200 border-l-4 border-[#071629] shadow-md p-3 flex flex-col justify-between animate-float-delayed">
-                  <div className="w-6 h-1 bg-[#071629] rounded-full" />
-                  <span className="text-slate-800 font-bold text-xs uppercase">Kiểm toán nội bộ</span>
-                </div>
-                {/* Khối navy đáy */}
-                <div className="w-full h-24 rounded-2xl bg-[#071629] border-l-4 border-amber-400 shadow-xl p-3 flex flex-col justify-between animate-float-slow">
-                  <div className="w-6 h-1 bg-amber-400 rounded-full" />
-                  <span className="text-white font-bold text-xs uppercase">Tăng trưởng quy mô</span>
-                </div>
+                <span className="text-[#0A192F] font-black text-sm uppercase tracking-wider">Tài chính & Vốn</span>
               </div>
-
             </div>
+
+            {/* CỘT 2 */}
+            <div className="flex flex-col gap-5 pt-8 sm:pt-12">
+              {/* Card 3: Giải pháp AI (Light Cyan with light sweep) */}
+              <div
+                className={`w-full h-64 rounded-3xl bg-[#e0f2fe] border border-sky-200 hover:border-sky-400 p-6 flex flex-col justify-between shadow-xl relative overflow-hidden group transition-all duration-300 hover:shadow-2xl ${
+                  isIntersecting ? 'animate-card-entrance' : 'opacity-0'
+                }`}
+                style={{ animationDelay: '90ms' }}
+              >
+                {/* Vệt sáng quét ngang lặp lại mỗi 5s */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-3xl">
+                  <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/50 to-transparent loop-light-sweep" />
+                </div>
+
+                <div className="w-8 h-1.5 bg-[#00c2ff] rounded-full transition-all duration-300 group-hover:w-20 z-10" />
+                <div className="py-4 text-[#0077b6] flex justify-center z-10 transition-transform duration-300 group-hover:scale-105">
+                  <Cpu className="w-12 h-12 stroke-[1.5]" />
+                </div>
+                <span className="text-[#0A192F] font-black text-sm uppercase tracking-wider z-10">Giải pháp AI</span>
+              </div>
+            </div>
+
+            {/* CỘT 3 */}
+            <div className="flex flex-col gap-5">
+              {/* Card 4: Vận hành đồng bộ (Light Cyan with rotating gear icon) */}
+              <div
+                className={`w-full h-44 rounded-3xl bg-[#e0f2fe] border border-sky-200 p-5 flex flex-col justify-between shadow-lg group transition-shadow duration-300 hover:shadow-xl ${
+                  isIntersecting ? 'animate-card-entrance' : 'opacity-0'
+                }`}
+                style={{ animationDelay: '270ms' }}
+              >
+                <div className="w-7 h-1.5 bg-[#00c2ff] rounded-full transition-all duration-300 group-hover:w-19" />
+                <div className="flex items-center gap-3 text-[#0077b6]">
+                  <Settings className="w-7 h-7 stroke-[1.5] animate-spin-gear" />
+                  <span className="text-[#0A192F] font-black text-xs sm:text-sm uppercase tracking-wider">Vận hành đồng bộ</span>
+                </div>
+              </div>
+
+              {/* Card 5: Kiểm toán nội bộ (White) */}
+              <div
+                className={`w-full h-44 rounded-3xl bg-white border border-slate-200/90 p-5 flex flex-col justify-between shadow-lg group transition-shadow duration-300 hover:shadow-xl ${
+                  isIntersecting ? 'animate-card-entrance' : 'opacity-0'
+                }`}
+                style={{ animationDelay: '360ms' }}
+              >
+                <div className="w-7 h-1.5 bg-[#071629] rounded-full transition-all duration-300 group-hover:w-19" />
+                <div className="flex items-center gap-3 text-[#0A192F]">
+                  <ShieldCheck className="w-7 h-7 stroke-[1.5] transition-transform duration-300 group-hover:scale-110 group-hover:text-[#0077b6]" />
+                  <span className="text-[#0A192F] font-black text-xs sm:text-sm uppercase tracking-wider">Kiểm toán nội bộ</span>
+                </div>
+              </div>
+
+              {/* Card 6: Tăng trưởng quy mô (Navy) */}
+              <div
+                className={`w-full h-44 rounded-3xl bg-[#071629] p-5 flex flex-col justify-between shadow-xl border border-slate-800 group transition-shadow duration-300 hover:shadow-2xl ${
+                  isIntersecting ? 'animate-card-entrance' : 'opacity-0'
+                }`}
+                style={{ animationDelay: '450ms' }}
+              >
+                <div className="w-7 h-1.5 bg-amber-400 rounded-full transition-all duration-300 group-hover:w-19" />
+                <div className="flex items-center gap-3 text-white">
+                  <TrendingUp className="w-7 h-7 stroke-[1.5] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <span className="text-white font-black text-xs sm:text-sm uppercase tracking-wider">Tăng trưởng quy mô</span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
       </div>
-
-      {/* ĐƯỜNG DẪN CYAN KÉO XUỐNG SECTION TIẾP THEO (MATRIX CONNECT) */}
-      <div className="w-full flex justify-center mt-12 pointer-events-none">
-        <div className="w-[1.5px] h-16 bg-gradient-to-b from-[#00c2ff]/30 to-[#00c2ff]" />
-      </div>
-
     </section>
   );
 };
