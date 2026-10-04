@@ -76,11 +76,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate, onOpenLog
           aria-label="Matrix Holding Trang chủ"
         >
           <img
-            src={
-              isLightHeader
-                ? '/src/assets/logo-matrix-holding-dark.svg'
-                : '/src/assets/logo-matrix-holding.svg'
-            }
+             src={
+               isLightHeader
+                 ? '/images/logo-matrix-holding-dark.svg'
+                 : '/images/logo-matrix-holding.svg'
+             }
             alt="Matrix Holding"
             className="h-8 lg:h-9 w-auto object-contain block transition-opacity duration-200"
           />

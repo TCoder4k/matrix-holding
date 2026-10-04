@@ -33,7 +33,7 @@ export const MatrixLogo: React.FC<MatrixLogoProps> = ({ className = '', size = '
       {/* Original 3D Metallic Matrix Holding Emblem */}
       <div className={`relative ${iconSizes[size] || iconSizes.md} shrink-0 flex items-center justify-center`}>
         <img
-          src="/src/assets/logo-matrix-holding.svg"
+          src="/images/logo-matrix-holding.svg"
           alt="Matrix Holding"
           className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,162,232,0.3)]"
         />
