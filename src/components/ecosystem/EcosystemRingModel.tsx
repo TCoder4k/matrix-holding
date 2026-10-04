@@ -19,9 +19,9 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
       desc: 'Cung cấp hạ tầng dịch vụ toàn diện từ tư vấn chiến lược, pháp lý, kế toán quản trị đến giải pháp công nghệ chuyển đổi số.',
       sectionId: 'section-network',
       icon: Share2,
-      // Exact center coordinates on ellipse (cx=370, cy=200, rx=260, ry=110, angle = -90deg)
-      x: 370,
-      y: 90,
+      // Top-Left quadrant
+      x: 215,
+      y: 105,
     },
     connect: {
       id: 'connect',
@@ -30,9 +30,9 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
       desc: 'Thúc đẩy hợp tác, mở rộng cơ hội và tạo ra giá trị chung giữa các bên trong hệ sinh thái.',
       sectionId: 'section-connect',
       icon: Link2,
-      // angle = -18deg
-      x: 617,
-      y: 166,
+      // Top-Right quadrant
+      x: 525,
+      y: 105,
     },
     ventures: {
       id: 'ventures',
@@ -41,9 +41,9 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
       desc: 'Hỗ trợ ươm mầm, đầu tư vốn mạo hiểm và tăng tốc quy mô cho các mô hình kinh doanh tiềm năng phát triển vượt bậc.',
       sectionId: 'section-ventures',
       icon: TrendingUp,
-      // angle = 142deg
-      x: 165,
-      y: 267,
+      // Bottom-Left quadrant
+      x: 215,
+      y: 295,
     },
     academy: {
       id: 'academy',
@@ -52,9 +52,9 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
       desc: 'Học viện huấn luyện thực chiến, chuyển giao tri thức quản trị hiện đại và phát triển nguồn nhân lực chất lượng cao.',
       sectionId: 'section-academy',
       icon: GraduationCap,
-      // angle = 42deg
-      x: 370 + 260 * Math.cos((42 * Math.PI) / 180),
-      y: 200 + 110 * Math.sin((42 * Math.PI) / 180), // ~ 563, 273.5
+      // Bottom-Right quadrant
+      x: 525,
+      y: 295,
     },
   };
 
@@ -175,11 +175,11 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
 
           </div>
 
-          {/* CỘT PHẢI (7 CỘT): MÔ HÌNH VÒNG OVAL VÀ CÁC NODE */}
+          {/* CỘT PHẢI (7 CỘT): MÔ HÌNH 4 GÓC ĐỐI XỨNG (IMAGE 2) */}
           <div className="lg:col-span-7 flex items-center justify-center relative min-h-[440px] sm:min-h-[500px]">
             <div className="relative w-full max-w-[740px] aspect-[16/10] flex items-center justify-center">
               
-              {/* SVG VÒNG OVAL & ĐƯỜNG NỐI (CHUẨN HÓA TỌA ĐỘ TÂM (370, 200)) */}
+              {/* SVG VÒNG OVAL & ĐƯỜNG NỐI CHUẨN 4 GÓC ĐỐI XỨNG */}
               <svg viewBox="0 0 740 400" className="w-full h-full overflow-visible" fill="none">
                 <defs>
                   <linearGradient id="laser-cyan-beam" x1="0%" y1="100%" x2="100%" y2="0%">
@@ -189,75 +189,49 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
                   </linearGradient>
                 </defs>
 
-                {/* VÒNG OVAL NÉT MẢNH (rx=260, ry=110) ÔM ĐỀU CÁC NÚT VỆ TINH */}
+                {/* VÒNG OVAL NÉT MẢNH (rx=240, ry=125) ÔM TRỌN 4 GÓC ĐỐI XỨNG */}
                 <ellipse
                   cx="370"
                   cy="200"
-                  rx="260"
-                  ry="110"
+                  rx="240"
+                  ry="125"
                   stroke="#CBD5E1"
                   strokeWidth="1.5"
                   opacity={entranceProgress >= 4 ? 1 : 0}
                   className="transition-opacity duration-700"
                 />
 
-                {/* ĐƯỜNG NỐI TỪ TÂM (370, 200) ĐẾN TÂM CỦA 4 NÚT VỆ TINH */}
+                {/* ĐƯỜNG NỐI TỪ TÂM (370, 200) ĐẾN TÂM 4 NÚT GÓC */}
                 <g opacity={entranceProgress >= 3 ? 1 : 0} className="transition-opacity duration-500">
-                  {/* Nối Network */}
-                  <line
-                    x1="370"
-                    y1="200"
-                    x2={unitsData.network.x}
-                    y2={unitsData.network.y}
-                    stroke="#00c2ff"
-                    strokeWidth={selectedUnit === 'network' || hoveredUnit === 'network' ? '2.5' : '1.5'}
-                    opacity={selectedUnit === 'network' || hoveredUnit === 'network' ? 1 : 0.4}
-                    className="transition-all duration-300"
-                  />
-                  {/* Nối Connect */}
-                  <line
-                    x1="370"
-                    y1="200"
-                    x2={unitsData.connect.x}
-                    y2={unitsData.connect.y}
-                    stroke="#00c2ff"
-                    strokeWidth={selectedUnit === 'connect' || hoveredUnit === 'connect' ? '2.5' : '1.5'}
-                    opacity={selectedUnit === 'connect' || hoveredUnit === 'connect' ? 1 : 0.4}
-                    className="transition-all duration-300"
-                  />
-                  {/* Nối Ventures */}
-                  <line
-                    x1="370"
-                    y1="200"
-                    x2={unitsData.ventures.x}
-                    y2={unitsData.ventures.y}
-                    stroke="#00c2ff"
-                    strokeWidth={selectedUnit === 'ventures' || hoveredUnit === 'ventures' ? '2.5' : '1.5'}
-                    opacity={selectedUnit === 'ventures' || hoveredUnit === 'ventures' ? 1 : 0.4}
-                    className="transition-all duration-300"
-                  />
-                  {/* Nối Academy */}
-                  <line
-                    x1="370"
-                    y1="200"
-                    x2={unitsData.academy.x}
-                    y2={unitsData.academy.y}
-                    stroke="#00c2ff"
-                    strokeWidth={selectedUnit === 'academy' || hoveredUnit === 'academy' ? '2.5' : '1.5'}
-                    opacity={selectedUnit === 'academy' || hoveredUnit === 'academy' ? 1 : 0.4}
-                    className="transition-all duration-300"
-                  />
+                  {Object.values(unitsData).map((unit) => {
+                    const isActive = selectedUnit === unit.id || hoveredUnit === unit.id;
+                    return (
+                      <g key={unit.id}>
+                        <line
+                          x1="370"
+                          y1="200"
+                          x2={unit.x}
+                          y2={unit.y}
+                          stroke="#00c2ff"
+                          strokeWidth={isActive ? '2.5' : '1.5'}
+                          opacity={isActive ? 1 : 0.45}
+                          className="transition-all duration-300"
+                        />
+                        {/* Điểm nút nhỏ trên đường nối (giống ảnh mẫu) */}
+                        <circle
+                          cx={370 + (unit.x - 370) * 0.55}
+                          cy={200 + (unit.y - 200) * 0.55}
+                          r={isActive ? '4' : '3'}
+                          fill="#00c2ff"
+                          filter="drop-shadow(0 0 4px #00c2ff)"
+                        />
+                      </g>
+                    );
+                  })}
                 </g>
-
-                {/* ĐIỂM SÁNG PHOTON CHẠY NHẸ TRÊN ĐƯỜNG NỐI */}
-                {entranceProgress >= 4 && (
-                  <circle cx="0" cy="0" r="3" fill="#00c2ff" filter="drop-shadow(0 0 5px #00c2ff)">
-                    <animateMotion path={`M 370 200 L ${unitsData.connect.x} ${unitsData.connect.y}`} dur="3s" repeatCount="indefinite" />
-                  </circle>
-                )}
               </svg>
 
-              {/* TRUNG TÂM: MATRIX HOLDING (Tọa độ gốc chuẩn xác tuyệt đối qua translate(-50%, -50%)) */}
+              {/* TRUNG TÂM: MATRIX HOLDING (Tọa độ gốc chuẩn xác tuyệt đối) */}
               <div
                 className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-700 ease-out flex flex-col items-center select-none ${
                   entranceProgress >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
@@ -278,9 +252,9 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
                 </div>
               </div>
 
-              {/* 4 ĐƠN VỊ VỆ TINH (Định vị chuẩn xác tuyệt đối theo hệ tọa độ SVG ellipse bằng % CSS) */}
+              {/* 4 ĐƠN VỊ VỆ TINH (ĐẶT Ở 4 GÓC ĐỐI XỨNG NHƯ ẢNH 2) */}
               
-              {/* 1. Matrix Network */}
+              {/* 1. Matrix Network (Top-Left) */}
               <button
                 type="button"
                 onClick={() => handleUnitClick('network')}
@@ -312,7 +286,7 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
                 </div>
               </button>
 
-              {/* 2. Matrix Connect */}
+              {/* 2. Matrix Connect (Top-Right) */}
               <button
                 type="button"
                 onClick={() => handleUnitClick('connect')}
@@ -344,7 +318,7 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
                 </div>
               </button>
 
-              {/* 3. Matrix Ventures */}
+              {/* 3. Matrix Ventures (Bottom-Left) */}
               <button
                 type="button"
                 onClick={() => handleUnitClick('ventures')}
@@ -376,7 +350,7 @@ export const EcosystemRingModel: React.FC<EcosystemRingModelProps> = ({ onSelect
                 </div>
               </button>
 
-              {/* 4. Matrix Academy */}
+              {/* 4. Matrix Academy (Bottom-Right) */}
               <button
                 type="button"
                 onClick={() => handleUnitClick('academy')}
