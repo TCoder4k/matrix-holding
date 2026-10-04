@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none">
+  <!-- Dual red squares rotated 45 degrees -->
+  <g transform="translate(100, 36) scale(0.6)">
+    <rect x="-24" y="-12" width="24" height="24" transform="rotate(45)" fill="#e11d48" />
+    <rect x="0" y="-12" width="24" height="24" transform="rotate(45)" fill="#e11d48" />
+    <polygon points="-8,-8 0,0 -8,8" fill="#ffffff" />
+  </g>
+  <!-- Text -->
+  <text x="100" y="74" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="10.5" font-weight="900" letter-spacing="0.08em" fill="#0f172a">
+    <tspan fill="#e11d48">TECHCOM</tspan>BANK
+  </text>
+</svg>

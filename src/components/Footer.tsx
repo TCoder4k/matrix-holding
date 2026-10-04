@@ -1,369 +1,139 @@
-import { Linkedin, Facebook, Youtube, Link as LinkIcon } from 'lucide-react';
-import { NavTabKey } from './Navbar';
+import React from 'react';
+import { MatrixLogo } from './MatrixLogo';
+import { NavItemKey } from './Navbar';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate?: (tab: NavTabKey, sectionId?: string) => void;
-  onOpenContact?: (topic?: string) => void;
-  variant?: 'default' | 'streamlined';
+  onNavigate: (tab: NavItemKey) => void;
+  activeTab?: NavItemKey;
 }
 
-export default function Footer({ onNavigate, onOpenContact, variant = 'default' }: FooterProps) {
-  const handleNav = (tab: NavTabKey, sectionId?: string) => {
-    if (onNavigate) {
-      onNavigate(tab, sectionId);
-    }
-  };
-
-  if (variant === 'streamlined') {
-    return (
-      <footer className="bg-[#051323] text-slate-300 py-6 border-t border-white/10 text-xs sm:text-sm">
-        <div className="container-page flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Brand Logo - 100% transparent icon */}
-          <button
-            type="button"
-            onClick={() => handleNav('home')}
-            className="flex items-center gap-3 text-left cursor-pointer group select-none"
-          >
-            <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
-              <img
-                src="/images/logo-matrix-holding.svg"
-                alt="Matrix Holding"
-                className="w-full h-full object-contain filter drop-shadow-[0_2px_10px_rgba(39,217,239,0.3)] group-hover:scale-105 transition-transform"
-              />
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-extrabold text-lg tracking-wider text-white font-display">
-                MATRIX
-              </span>
-              <span className="text-[9px] tracking-[0.32em] text-slate-300 group-hover:text-[#27d9ef] font-semibold uppercase mt-0.5 transition-colors">
-                HOLDING
-              </span>
-            </div>
-          </button>
-
-          {/* Navigation Links */}
-          <nav className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-sm font-medium text-slate-300">
-            <button
-              type="button"
-              onClick={() => handleNav('home')}
-              className="hover:text-[#27d9ef] transition-colors cursor-pointer"
-            >
-              Trang chủ
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNav('about')}
-              className="hover:text-[#27d9ef] transition-colors cursor-pointer"
-            >
-              Giới thiệu
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNav('ecosystem')}
-              className="text-[#27d9ef] font-semibold hover:text-[#27d9ef] transition-colors cursor-pointer"
-            >
-              Hệ sinh thái
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNav('news')}
-              className="hover:text-[#27d9ef] transition-colors cursor-pointer"
-            >
-              Tin tức
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNav('careers')}
-              className="hover:text-[#27d9ef] transition-colors cursor-pointer"
-            >
-              Tuyển dụng
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNav('contact')}
-              className="hover:text-[#27d9ef] transition-colors cursor-pointer"
-            >
-              Liên hệ
-            </button>
-          </nav>
-        </div>
-      </footer>
-    );
-  }
-
+export const Footer: React.FC<FooterProps> = ({ onNavigate, activeTab }) => {
   return (
-    <footer className="bg-[#081c31] text-slate-400 py-16 border-t border-white/10 text-xs sm:text-sm">
-      <div className="container-page">
-        {/* Top 6 Columns matching Mockup */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 pb-12 border-b border-white/10">
-          {/* Col 1: Brand & Tagline & Socials */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-1 space-y-4">
-            <button
-              type="button"
-              onClick={() => handleNav('home')}
-              className="flex items-center gap-2.5 text-left cursor-pointer group select-none"
-            >
-              <div className="relative w-7 h-7 flex items-center justify-center shrink-0">
-                <img
-                  src="/images/logo-matrix-holding.svg"
-                  alt="Matrix Holding"
-                  className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(39,217,239,0.3)] group-hover:scale-105 transition-transform"
-                />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-extrabold text-base tracking-wider text-white font-display">
-                  MATRIX
-                </span>
-                <span className="text-[8.5px] tracking-[0.3em] text-slate-300 group-hover:text-[#27d9ef] font-semibold uppercase mt-0.5 transition-colors">
-                  HOLDING
-                </span>
-              </div>
-            </button>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Kiến tạo giá trị bền vững vì một tương lai tốt đẹp hơn.
+    <footer className="bg-[#0b1a30] text-slate-400 border-t border-[#132847]">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14">
+        
+        {/* 4 Cột theo mẫu thiết kế */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-slate-800/80">
+          
+          {/* Cột 1 (4/12): Logo và Định vị thương hiệu */}
+          <div className="lg:col-span-4">
+            <div className="mb-4">
+              <MatrixLogo size="md" />
+            </div>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-sm">
+              Kiến tạo giá trị bền vững thông qua đầu tư và phát triển hệ sinh thái đa ngành.
             </p>
-
-            {/* Social Icons matching mockup */}
-            <div className="flex items-center gap-2.5 pt-1 text-slate-400">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-7 h-7 rounded-full bg-white/5 hover:bg-[#27d9ef] hover:text-[#081c31] flex items-center justify-center transition-all"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-7 h-7 rounded-full bg-white/5 hover:bg-[#27d9ef] hover:text-[#081c31] flex items-center justify-center transition-all"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-7 h-7 rounded-full bg-white/5 hover:bg-[#27d9ef] hover:text-[#081c31] flex items-center justify-center transition-all"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href="#"
-                className="w-7 h-7 rounded-full bg-white/5 hover:bg-[#27d9ef] hover:text-[#081c31] flex items-center justify-center transition-all"
-                aria-label="Share"
-              >
-                <LinkIcon className="w-3.5 h-3.5" />
-              </a>
-            </div>
           </div>
 
-          {/* Col 2: Về chúng tôi */}
-          <div className="space-y-3">
-            <h4 className="font-bold text-xs uppercase tracking-wider text-white">
-              Về chúng tôi
-            </h4>
-            <ul className="space-y-2 text-xs">
+          {/* Cột 2 (2/12): Điều hướng 1 */}
+          <div className="lg:col-span-2">
+            <span className="text-xs font-bold text-white uppercase tracking-wider block mb-3.5">
+              Điều hướng
+            </span>
+            <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
                 <button
-                  type="button"
-                  onClick={() => handleNav('about', 'gioi-thieu-hero')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => onNavigate('home')}
+                  className={`transition-colors cursor-pointer ${
+                    activeTab === 'home' ? 'text-[#00c2ff] font-semibold' : 'hover:text-white'
+                  }`}
                 >
-                  Tổng quan
+                  Trang chủ
                 </button>
               </li>
               <li>
                 <button
-                  type="button"
-                  onClick={() => handleNav('about', 'su-menh-tam-nhin')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => onNavigate('about')}
+                  className={`transition-colors cursor-pointer ${
+                    activeTab === 'about' ? 'text-[#00c2ff] font-semibold' : 'hover:text-white'
+                  }`}
                 >
-                  Tầm nhìn – Sứ mệnh
+                  Giới thiệu
                 </button>
               </li>
               <li>
                 <button
-                  type="button"
-                  onClick={() => handleNav('about', 'gia-tri-cot-loi')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => onNavigate('ecosystem')}
+                  className={`transition-colors cursor-pointer ${
+                    activeTab === 'ecosystem' ? 'text-[#00c2ff] font-semibold' : 'hover:text-white'
+                  }`}
                 >
-                  Giá trị cốt lõi
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('about', 'lanh-dao')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Ban lãnh đạo
+                  Hệ sinh thái
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Hệ sinh thái */}
-          <div className="space-y-3">
-            <h4 className="font-bold text-xs uppercase tracking-wider text-white">
-              Hệ sinh thái
-            </h4>
-            <ul className="space-y-2 text-xs">
+          {/* Cột 3 (2/12): Điều hướng 2 */}
+          <div className="lg:col-span-2 pt-0 sm:pt-6 lg:pt-7">
+            <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
                 <button
-                  type="button"
-                  onClick={() => handleNav('ecosystem', 'ba-thuong-hieu')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => onNavigate('news')}
+                  className={`transition-colors cursor-pointer ${
+                    activeTab === 'news' ? 'text-[#00c2ff] font-semibold' : 'hover:text-white'
+                  }`}
                 >
-                  MATRIX Network
+                  Tin tức
                 </button>
               </li>
               <li>
                 <button
-                  type="button"
-                  onClick={() => handleNav('ecosystem', 'ba-thuong-hieu')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => onNavigate('careers')}
+                  className={`transition-colors cursor-pointer ${
+                    activeTab === 'careers' ? 'text-[#00c2ff] font-semibold' : 'hover:text-white'
+                  }`}
                 >
-                  MATRIX Capital
+                  Tuyển dụng
                 </button>
               </li>
               <li>
                 <button
-                  type="button"
-                  onClick={() => handleNav('ecosystem', 'ba-thuong-hieu')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => onNavigate('contact')}
+                  className={`transition-colors cursor-pointer ${
+                    activeTab === 'contact' ? 'text-[#00c2ff] font-semibold' : 'hover:text-white'
+                  }`}
                 >
-                  MATRIX Community
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('ecosystem', 'mo-hinh-lien-ket')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Mô hình liên kết
+                  Liên hệ
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Tin tức */}
-          <div className="space-y-3">
-            <h4 className="font-bold text-xs uppercase tracking-wider text-white">
-              Tin tức
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('news')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Bài viết nổi bật
-                </button>
+          {/* Cột 4 (4/12): Thông tin liên hệ */}
+          <div className="lg:col-span-4">
+            <span className="text-xs font-bold text-white uppercase tracking-wider block mb-3.5">
+              Thông tin liên hệ
+            </span>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
+              <li className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-[#00c2ff] shrink-0" />
+                <a href="mailto:matrixholding.support@gmail.com" className="hover:text-white transition-colors">
+                  matrixholding.support@gmail.com
+                </a>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('news')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Câu chuyện Matrix
-                </button>
+              <li className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-[#00c2ff] shrink-0" />
+                <a href="tel:+84964243026" className="hover:text-white transition-colors">
+                  (+84) 964 243 026
+                </a>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('news')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Góc nhìn chuyên gia
-                </button>
+              <li className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[#00c2ff] shrink-0 mt-0.5" />
+                <span>KĐT Bắc Linh Đàm, Phường Hoàng Liệt, Hà Nội</span>
               </li>
             </ul>
           </div>
 
-          {/* Col 5: Tuyển dụng */}
-          <div className="space-y-3">
-            <h4 className="font-bold text-xs uppercase tracking-wider text-white">
-              Tuyển dụng
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('careers', 'nhom-chuyen-mon')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Cơ hội nghề nghiệp
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('careers', 'tai-sao-dong-hanh')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Văn hóa doanh nghiệp
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('careers', 'tai-sao-dong-hanh')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Lộ trình phát triển
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 6: Liên hệ */}
-          <div className="space-y-3">
-            <h4 className="font-bold text-xs uppercase tracking-wider text-white">
-              Liên hệ
-            </h4>
-            <div className="space-y-1.5 text-xs text-slate-400">
-              <p>TP. Hồ Chí Minh, Việt Nam</p>
-              <p className="font-mono text-slate-300">+84 28 1234 5678</p>
-              <p className="text-slate-300">contact@matrixholding.vn</p>
-            </div>
-            <ul className="space-y-1.5 text-xs pt-1">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNav('contact')}
-                  className="hover:text-[#27d9ef] transition-colors cursor-pointer text-left text-[#27d9ef] font-medium"
-                >
-                  Liên hệ trực tiếp →
-                </button>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        {/* Bottom Bar matching Mockup */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div>
-            © 2024 MATRIX HOLDING. All rights reserved.
-          </div>
-          <div className="flex items-center gap-3">
-            <a href="#" className="hover:text-slate-300 transition-colors">
-              Chính sách bảo mật
-            </a>
-            <span aria-hidden="true">|</span>
-            <a href="#" className="hover:text-slate-300 transition-colors">
-              Điều khoản sử dụng
-            </a>
-          </div>
+        {/* Chân trang dòng bản quyền */}
+        <div className="pt-6 text-xs text-slate-500">
+          © 2026 Matrix Holding. All rights reserved.
         </div>
+
       </div>
     </footer>
   );
-}
+};

@@ -1,223 +1,348 @@
-import { useState } from 'react';
-import { ArrowRight, Share2, Network, Box, Database, Layers } from 'lucide-react';
-import { ecosystemNodes } from '../content';
+import React, { useState, useEffect, useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { MatrixLogo } from './MatrixLogo';
 
-export default function EcosystemSection() {
-  const [activeNode, setActiveNode] = useState<string | null>(null);
+interface EcosystemPillar {
+  id: string;
+  index: string;
+  name: string;
+  description: string;
+  cta: string;
+  image: string;
+  destination: 'ecosystem' | 'contact';
+}
 
-  const renderIcon = (type: string) => {
-    switch (type) {
-      case 'network':
-        return (
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 p-2.5 text-white shadow-md flex items-center justify-center">
-            <Network className="w-7 h-7" />
-          </div>
-        );
-      case 'connect':
-        return (
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 p-2.5 text-white shadow-md flex items-center justify-center">
-            <Box className="w-7 h-7" />
-          </div>
-        );
-      case 'capital':
-        return (
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-400 to-blue-700 p-2.5 text-white shadow-md flex items-center justify-center">
-            <Database className="w-7 h-7" />
-          </div>
-        );
-      case 'specialized':
-        return (
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-slate-700 p-2.5 text-white shadow-md flex items-center justify-center">
-            <Layers className="w-7 h-7" />
-          </div>
-        );
+interface EcosystemSectionProps {
+  onNavigate?: (key: 'home' | 'about' | 'ecosystem' | 'news' | 'careers' | 'contact') => void;
+  onOpenContact?: () => void;
+}
+
+export const EcosystemSection: React.FC<EcosystemSectionProps> = ({
+  onNavigate,
+  onOpenContact,
+}) => {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [isAssembled, setIsAssembled] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Danh mục 4 mảnh ghép theo đúng nội dung yêu cầu
+  const pillars: EcosystemPillar[] = [
+    {
+      id: 'network',
+      index: '01',
+      name: 'Matrix Network',
+      description: 'Hệ sinh thái dịch vụ toàn diện',
+      cta: 'Xem giải pháp',
+      image: '/src/assets/images/matrix_team_meeting_1790857862728.jpg',
+      destination: 'ecosystem',
+    },
+    {
+      id: 'connect',
+      index: '02',
+      name: 'Matrix Connect',
+      description: 'Hệ sinh thái kết nối kinh doanh',
+      cta: 'Kết nối doanh nghiệp',
+      image: '/src/assets/images/matrix_networking_lounge_1790822870952.jpg',
+      destination: 'ecosystem',
+    },
+    {
+      id: 'ventures',
+      index: '03',
+      name: 'Matrix Ventures',
+      description: 'Hệ sinh thái kết nối đầu tư',
+      cta: 'Tìm cơ hội đầu tư',
+      image: '/src/assets/images/matrix_boardroom_skyline_1790822831335.jpg',
+      destination: 'ecosystem',
+    },
+    {
+      id: 'academy',
+      index: '04',
+      name: 'Matrix Academy',
+      description: 'Hệ sinh thái đào tạo tinh hoa',
+      cta: 'Đăng ký khóa học',
+      image: '/src/assets/images/matrix_academy_seminar_1790860827960.jpg',
+      destination: 'contact',
+    },
+  ];
+
+  // 1. Kiểm tra prefers-reduced-motion và kích thước màn hình
+  useEffect(() => {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(motionQuery.matches);
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    if (motionQuery.addEventListener) {
+      motionQuery.addEventListener('change', handleMotionChange);
+    }
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      if (motionQuery.removeEventListener) {
+        motionQuery.removeEventListener('change', handleMotionChange);
+      }
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  // 2. Kích hoạt hiệu ứng khi mép trên của grid bốn mảnh ghép đi đến khoảng 65–70% chiều cao màn hình
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsAssembled(true);
+      return;
+    }
+
+    const checkScrollPosition = () => {
+      if (isAssembled) return;
+      const grid = gridRef.current;
+      if (!grid) return;
+
+      const rect = grid.getBoundingClientRect();
+      const windowHeight = window.innerHeight || 800;
+
+      // Đo mốc chuẩn: mép trên của grid đi đến 68% chiều cao màn hình tính từ trên xuống
+      if (rect.top <= windowHeight * 0.68) {
+        setIsAssembled(true);
+      }
+    };
+
+    // Kiểm tra ngay khi tải trang nếu người dùng F5 hoặc cuộn tới sẵn
+    checkScrollPosition();
+
+    window.addEventListener('scroll', checkScrollPosition, { passive: true });
+    window.addEventListener('resize', checkScrollPosition, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', checkScrollPosition);
+      window.removeEventListener('resize', checkScrollPosition);
+    };
+  }, [isAssembled, prefersReducedMotion]);
+
+  // Xử lý điều hướng khi bấm vào CTA của từng mảnh ghép
+  const handleItemClick = (pillar: EcosystemPillar) => {
+    if (pillar.destination === 'contact') {
+      if (onOpenContact) {
+        onOpenContact();
+      } else if (onNavigate) {
+        onNavigate('contact');
+      }
+    } else {
+      if (onNavigate) {
+        onNavigate('ecosystem');
+      }
+    }
+  };
+
+  // Tính toán class dịch chuyển ban đầu cho 4 góc đối xứng
+  const getInitialTransformClass = (index: number) => {
+    if (prefersReducedMotion) return 'opacity-100 translate-x-0 translate-y-0 scale-100';
+
+    if (isMobile) {
+      // Mobile: Trượt nhẹ 20–24px từ dưới lên, không bay chéo ngang
+      return isAssembled
+        ? 'opacity-100 translate-y-0 scale-100'
+        : 'opacity-0 translate-y-6 scale-100 pointer-events-none';
+    }
+
+    // Desktop 2x2:
+    // 01 Network (Trái - Trên): đi từ trái trên (-45px, -45px)
+    // 02 Connect (Phải - Trên): đi từ phải trên (45px, -45px)
+    // 03 Ventures (Trái - Dưới): đi từ trái dưới (-45px, 45px)
+    // 04 Academy (Phải - Dưới): đi từ phải dưới (45px, 45px)
+    if (isAssembled) {
+      return 'opacity-100 translate-x-0 translate-y-0 scale-100';
+    }
+
+    switch (index) {
+      case 0:
+        return 'opacity-0 -translate-x-[45px] -translate-y-[45px] scale-[0.97] pointer-events-none';
+      case 1:
+        return 'opacity-0 translate-x-[45px] -translate-y-[45px] scale-[0.97] pointer-events-none';
+      case 2:
+        return 'opacity-0 -translate-x-[45px] translate-y-[45px] scale-[0.97] pointer-events-none';
+      case 3:
+        return 'opacity-0 translate-x-[45px] translate-y-[45px] scale-[0.97] pointer-events-none';
       default:
-        return <Share2 className="w-7 h-7 text-cyan-500" />;
+        return 'opacity-0 scale-[0.97] pointer-events-none';
     }
   };
 
   return (
-    <section id="he-sinh-thai" className="py-20 sm:py-24 bg-white text-slate-900 border-b border-slate-100">
-      <div className="container-page">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Heading and Description */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#0284c7]">
-                HỆ SINH THÁI
-              </span>
-              <span className="w-8 h-[2px] bg-[#0284c7] inline-block" />
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-slate-950 leading-[1.2] tracking-tight">
-              Cộng hưởng sức mạnh<br />tạo giá trị bền vững
+    <section className="relative w-full py-12 sm:py-16 lg:py-24 bg-white text-[#0A192F] overflow-hidden">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* ========================================================================= */}
+        {/* PHẦN TIÊU ĐỀ: 2 CỘT CĂN GIỮA THEO CHIỀU DỌC (65% / 35%)                   */}
+        {/* ========================================================================= */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 lg:gap-12 mb-10 sm:mb-12 lg:mb-16">
+          
+          {/* Cột trái: Tiêu đề 2 dòng lớn màu navy đậm (~65%) */}
+          <div className="w-full md:w-[62%] lg:w-[64%]">
+            <h2 className="text-[clamp(30px,3.8vw,52px)] font-black text-[#0A192F] leading-[1.15] tracking-tight">
+              Bốn hệ sinh thái.<br />
+              Một nền tảng phát triển.
             </h2>
-
-            <p className="text-base text-slate-600 leading-relaxed">
-              MATRIX HOLDING phát triển hệ sinh thái đa ngành với các lĩnh vực bổ trợ, cùng hướng tới mục tiêu kiến tạo giá trị dài hạn, đóng góp tích cực cho sự phát triển của xã hội.
-            </p>
-
-            <div className="pt-2">
-              <a
-                href="#du-an"
-                className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-[#081c31] bg-white border border-[#27d9ef] rounded-md hover:bg-[#e0f7fa]/50 transition-colors shadow-xs"
-              >
-                <span>Khám phá hệ sinh thái</span>
-              </a>
-            </div>
           </div>
 
-          {/* Right Column: HTML & SVG Connected Network Diagram */}
-          <div className="lg:col-span-7">
-            <div className="relative bg-[#f8fafc] border border-slate-200/90 rounded-2xl p-6 sm:p-10 shadow-xs overflow-hidden">
-              {/* Background subtle grid and orbits */}
-              <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(#081c31_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+          {/* Cột phải: Đoạn mô tả với đường kẻ dọc mảnh 2px màu xanh dịu (~35%) */}
+          <div className="w-full md:w-[38%] lg:w-[36%] flex items-center">
+            {/* Đường kẻ dọc mảnh 2px màu xanh dịu cách chữ 20-24px */}
+            <div
+              className="w-[2px] h-12 sm:h-14 bg-sky-300 rounded-full shrink-0 mr-5 sm:mr-6"
+              aria-hidden="true"
+            />
+            <p className="text-slate-600 text-base sm:text-[17px] leading-relaxed max-w-[360px]">
+              Kết nối dịch vụ, cộng đồng, đầu tư và đào tạo trong một hệ sinh thái.
+            </p>
+          </div>
 
-              {/* Responsive SVG Connecting Lines */}
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 600 440"
-                preserveAspectRatio="xMidYMid meet"
-              >
-                <defs>
-                  <linearGradient id="cyanLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#27d9ef" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#0284c7" stopOpacity="0.4" />
-                  </linearGradient>
-                  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                </defs>
+        </div>
 
-                {/* Central connecting rings */}
-                <ellipse cx="300" cy="220" rx="140" ry="85" fill="none" stroke="#27d9ef" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.35" />
-                <ellipse cx="300" cy="220" rx="210" ry="120" fill="none" stroke="#0284c7" strokeWidth="1" strokeDasharray="6 6" opacity="0.2" />
+        {/* ========================================================================= */}
+        {/* BỐN MẢNH GHÉP: GRID 2 × 2 CÓ LOGO MATRIX NẰM TẠI GIAO ĐIỂM                 */}
+        {/* ========================================================================= */}
+        <div className="relative">
+          
+          {/* 
+            Wrapper Grid 2x2:
+            - Khoảng cách giữa các ô 6–8px (gap-2 sm:gap-2.5)
+            - Không dùng overflow-hidden ở đây để badge giao điểm nổi lên trên không bị cắt
+          */}
+          <div
+            ref={gridRef}
+            className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-2.5 relative"
+          >
+            {pillars.map((item, index) => {
+              // Nhịp trễ stagger êm ái: 0ms, 160ms, 320ms, 480ms để các mảnh vào từ từ
+              const transitionDelay = prefersReducedMotion ? '0ms' : `${index * 160}ms`;
 
-                {/* Connector lines from Center (300, 220) to 4 Node Positions */}
-                {/* Node 1: Top Left (140, 90) */}
-                <path d="M 300 220 Q 200 180, 140 90" fill="none" stroke="url(#cyanLineGrad)" strokeWidth="2" strokeDasharray="5 3" />
-                <circle cx="140" cy="90" r="4" fill="#27d9ef" filter="url(#glow)" />
-
-                {/* Node 2: Top Right (460, 90) */}
-                <path d="M 300 220 Q 400 180, 460 90" fill="none" stroke="url(#cyanLineGrad)" strokeWidth="2" strokeDasharray="5 3" />
-                <circle cx="460" cy="90" r="4" fill="#27d9ef" filter="url(#glow)" />
-
-                {/* Node 3: Bottom Left (140, 350) */}
-                <path d="M 300 220 Q 200 260, 140 350" fill="none" stroke="url(#cyanLineGrad)" strokeWidth="2" strokeDasharray="5 3" />
-                <circle cx="140" cy="350" r="4" fill="#27d9ef" filter="url(#glow)" />
-
-                {/* Node 4: Bottom Right (460, 350) */}
-                <path d="M 300 220 Q 400 260, 460 350" fill="none" stroke="url(#cyanLineGrad)" strokeWidth="2" strokeDasharray="5 3" />
-                <circle cx="460" cy="350" r="4" fill="#27d9ef" filter="url(#glow)" />
-
-                {/* Center Node Glow */}
-                <circle cx="300" cy="220" r="54" fill="none" stroke="#27d9ef" strokeWidth="2" opacity="0.5" />
-              </svg>
-
-              {/* HTML Nodes Grid */}
-              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-y-16 sm:gap-y-24 gap-x-8">
-                {/* 1. MATRIX NETWORK (Top-Left) */}
+              return (
+                /* 
+                  Wrapper hiệu ứng xuất hiện (Assemble Transform):
+                  Thời gian kéo dài 1300ms với easing siêu êm cubic-bezier(0.16, 1, 0.3, 1) giúp chuyển động vào từ từ, thanh lịch
+                */
                 <div
-                  onMouseEnter={() => setActiveNode('network')}
-                  onMouseLeave={() => setActiveNode(null)}
-                  className={`flex items-center gap-3 transition-transform duration-200 cursor-pointer ${
-                    activeNode === 'network' ? 'scale-105' : ''
-                  }`}
+                  key={item.id}
+                  className={`w-full will-change-transform transition-all duration-[1300ms] ${getInitialTransformClass(
+                    index
+                  )}`}
+                  style={{
+                    transitionDelay,
+                    transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
                 >
-                  {renderIcon('network')}
-                  <div>
-                    <h3 className="font-bold text-sm sm:text-base text-slate-900 tracking-tight">
-                      MATRIX NETWORK
-                    </h3>
-                    <p className="text-xs text-slate-500 leading-snug mt-0.5">
-                      Kết nối nguồn lực,<br className="hidden sm:inline" /> mở rộng cơ hội
-                    </p>
-                  </div>
-                </div>
+                  {/* 
+                    Thẻ mảnh ghép tương tác (Interactive Card):
+                    - Tỷ lệ ~2:1 trên desktop (aspect-[2/1] hoặc aspect-[1.95/1]), mobile aspect-[4/3]
+                    - Bo góc 14–16px (rounded-[16px])
+                    - Wrapper ảnh bên trong dùng overflow-hidden
+                  */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => handleItemClick(item)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleItemClick(item);
+                      }
+                    }}
+                    aria-label={`${item.name} - ${item.description}`}
+                    className="group/card relative w-full aspect-[4/3] sm:aspect-[1.9/1] lg:aspect-[2/1] rounded-[16px] overflow-hidden select-none cursor-pointer focus-visible:outline-2 focus-visible:outline-[#00c2ff] focus-visible:outline-offset-2 transition-shadow duration-300"
+                  >
+                    
+                    {/* Ảnh nền với lớp phủ gradient chủ yếu ở phần dưới */}
+                    <div className="absolute inset-0 overflow-hidden bg-slate-900">
+                      <img
+                        src={item.image}
+                        alt=""
+                        loading="lazy"
+                        className="w-full h-full object-cover transform transition-transform duration-[600ms] ease-out group-hover/card:scale-[1.04]"
+                      />
+                      {/* Gradient navy chỉ phủ tối ở phần dưới để chữ dễ đọc; phần trên vẫn sáng, thấy rõ con người và không gian */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-[#0A192F]/92 via-[#0A192F]/50 to-transparent pointer-events-none"
+                        aria-hidden="true"
+                      />
+                    </div>
 
-                {/* 2. MATRIX CONNECT (Top-Right) */}
-                <div
-                  onMouseEnter={() => setActiveNode('connect')}
-                  onMouseLeave={() => setActiveNode(null)}
-                  className={`flex items-center sm:flex-row-reverse sm:text-right gap-3 transition-transform duration-200 cursor-pointer ${
-                    activeNode === 'connect' ? 'scale-105' : ''
-                  }`}
-                >
-                  {renderIcon('connect')}
-                  <div>
-                    <h3 className="font-bold text-sm sm:text-base text-slate-900 tracking-tight">
-                      MATRIX CONNECT
-                    </h3>
-                    <p className="text-xs text-slate-500 leading-snug mt-0.5">
-                      Liên kết đối tác,<br className="hidden sm:inline" /> phân bổ giá trị
-                    </p>
-                  </div>
-                </div>
-
-                {/* Central Holding Hub Disk */}
-                <div className="sm:col-span-2 flex justify-center -my-6 sm:-my-10">
-                  <div className="relative group cursor-pointer">
-                    <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#081c31] border-2 border-[#27d9ef] shadow-[0_0_25px_rgba(39,217,239,0.35)] flex flex-col items-center justify-center text-center p-2 text-white transition-transform duration-300 group-hover:scale-105">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 mb-1 shrink-0 flex items-center justify-center">
-                        <img
-                          src="/images/logo-matrix-holding.png"
-                          alt="Matrix Emblem"
-                          className="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(30,96,168,0.7)]"
-                        />
-                      </div>
-                      <span className="font-extrabold text-xs sm:text-sm tracking-wider text-white">
-                        MATRIX
-                      </span>
-                      <span className="text-[9px] tracking-[0.25em] text-[#27d9ef] font-semibold uppercase">
-                        HOLDING
+                    {/* Số thứ tự ở góc trên bên trái: 01, 02, 03, 04 trên nền navy bán trong suốt */}
+                    <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-20">
+                      <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#0A192F]/65 backdrop-blur-md text-white text-xs sm:text-sm font-semibold tracking-wider border border-white/10 shadow-sm">
+                        {item.index}
                       </span>
                     </div>
-                  </div>
-                </div>
 
-                {/* 3. MATRIX CAPITAL (Bottom-Left) */}
-                <div
-                  onMouseEnter={() => setActiveNode('capital')}
-                  onMouseLeave={() => setActiveNode(null)}
-                  className={`flex items-center gap-3 transition-transform duration-200 cursor-pointer ${
-                    activeNode === 'capital' ? 'scale-105' : ''
-                  }`}
-                >
-                  {renderIcon('capital')}
-                  <div>
-                    <h3 className="font-bold text-sm sm:text-base text-slate-900 tracking-tight">
-                      MATRIX CAPITAL
-                    </h3>
-                    <p className="text-xs text-slate-500 leading-snug mt-0.5">
-                      Đầu tư chiến lược,<br className="hidden sm:inline" /> thúc đẩy tăng trưởng
-                    </p>
-                  </div>
-                </div>
+                    {/* Khối nội dung đặt ở góc dưới bên trái (Padding 24–32px) */}
+                    <div className="relative z-20 p-6 sm:p-7 lg:p-8 flex flex-col justify-end h-full">
+                      {/* Tên thương hiệu màu trắng */}
+                      <h3 className="text-2xl sm:text-[28px] lg:text-[30px] font-black text-white tracking-tight leading-tight">
+                        {item.name}
+                      </h3>
 
-                {/* 4. CÁC ĐƠN VỊ CHUYÊN MÔN (Bottom-Right) */}
-                <div
-                  onMouseEnter={() => setActiveNode('specialized')}
-                  onMouseLeave={() => setActiveNode(null)}
-                  className={`flex items-center sm:flex-row-reverse sm:text-right gap-3 transition-transform duration-200 cursor-pointer ${
-                    activeNode === 'specialized' ? 'scale-105' : ''
-                  }`}
-                >
-                  {renderIcon('specialized')}
-                  <div>
-                    <h3 className="font-bold text-sm sm:text-base text-slate-900 tracking-tight">
-                      CÁC ĐƠN VỊ CHUYÊN MÔN
-                    </h3>
-                    <p className="text-xs text-slate-500 leading-snug mt-0.5">
-                      Phát triển giải pháp,<br className="hidden sm:inline" /> vận hành hiệu quả
-                    </p>
+                      {/* Mô tả màu trắng dịu */}
+                      <p className="text-white/85 text-sm sm:text-base font-normal mt-1 leading-snug">
+                        {item.description}
+                      </p>
+
+                      {/* CTA liên kết chữ cyan với gạch chân mảnh và mũi tên nhỏ hướng sang phải */}
+                      <div className="mt-3.5">
+                        <span className="inline-flex items-center gap-1.5 text-[#00c2ff] group-hover/card:text-white font-bold text-sm tracking-wide transition-colors">
+                          <span className="border-b border-[#00c2ff]/60 group-hover/card:border-white transition-colors pb-0.5">
+                            {item.cta}
+                          </span>
+                          <ArrowRight
+                            className="w-4 h-4 transition-transform duration-300 group-hover/card:translate-x-1"
+                            strokeWidth={2.4}
+                          />
+                        </span>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-              </div>
+              );
+            })}
+          </div>
+
+          {/* 
+            =======================================================================
+            LOGO TẠI GIAO ĐIỂM (CENTER INTERSECTION BADGE)
+            - Vòng tròn màu trắng nằm tại đúng tâm giao điểm 4 ô trên desktop/tablet
+            - Kích thước 76–84px, viền xám nhạt, bóng nhẹ
+            - Hiệu ứng xuất hiện sau cùng (opacity & scale 0.9 -> 1)
+            - pointer-events: none để không chặn thao tác click của người dùng
+            - Ẩn trên mobile khi chuyển sang 1 cột
+            =======================================================================
+          */}
+          <div
+            className={`hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none transition-all duration-[1000ms] ${
+              prefersReducedMotion || isAssembled
+                ? 'opacity-100 scale-100'
+                : 'opacity-0 scale-[0.9]'
+            }`}
+            style={{
+              transitionDelay: prefersReducedMotion ? '0ms' : '620ms',
+              transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+            aria-hidden="true"
+          >
+            <div className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] rounded-full bg-white border border-slate-200/90 shadow-[0_8px_24px_rgba(10,25,47,0.12)] flex items-center justify-center p-3.5">
+              <MatrixLogo size="sm" showText={false} className="w-8 h-8 lg:w-9 lg:h-9" />
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
   );
-}
+};

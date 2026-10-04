@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none">
+  <!-- Geometric Colorful Polyhedron Cube -->
+  <g transform="translate(100, 36) scale(0.65)">
+    <polygon points="0,-36 -28,-18 0,0 28,-18" fill="#eab308" />
+    <polygon points="-28,-18 -28,18 0,36 0,0" fill="#1e3a8a" />
+    <polygon points="0,0 0,36 28,18 28,-18" fill="#f97316" />
+    <polygon points="-12,-8 12,-8 0,16" fill="#22c55e" opacity="0.9" />
+  </g>
+  <!-- Text -->
+  <text x="100" y="74" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="14" font-weight="900" letter-spacing="0.1em" fill="#1e3a8a">FARINA</text>
+  <text x="100" y="86" text-anchor="middle" font-family="sans-serif" font-size="5.5" font-weight="600" letter-spacing="0.05em" fill="#64748b">Ingredients for the dedicated</text>
+</svg>
